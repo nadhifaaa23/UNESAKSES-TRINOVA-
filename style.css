@@ -1,0 +1,842 @@
+
+/* ==========================================
+   UNESAKSES - STYLE CSS
+   Modern Campus Information Website
+========================================== */
+
+
+/* 1. GLOBAL STYLE */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 90px;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f7f9fc;
+    color: #172b4d;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+:root {
+    --primary: #123b70;
+    --secondary: #1769aa;
+    --accent: #37a4e8;
+    --light: #edf5fc;
+    --dark: #142b49;
+    --text: #64748b;
+    --white: #ffffff;
+    --border: #e2e8f0;
+}
+
+
+/* 2. NAVBAR */
+
+.navbar {
+    width: 92%;
+    min-height: 78px;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+/* Efek glassmorphism */
+background: rgba(255, 255, 255, 0.16);
+backdrop-filter: blur(15px);
+-webkit-backdrop-filter: blur(15px);
+
+border: 1px solid rgba(255, 255, 255, 0.25);
+border-radius: 18px;
+
+position: absolute;
+top: 20px;
+left: 4%;
+z-index: 1000;
+
+box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+transition: 0.3s;
+}
+
+.navbar.scrolled {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 800;
+    color: #D4AF37;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    color: #D4AF37;
+}
+
+.navbar nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.navbar nav a {
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    transition: 0.3s;
+}
+
+.navbar nav a:hover,
+.navbar nav a.active {
+    color: #D4AF37;
+}
+
+.nav-button {
+    background: var(--primary);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.nav-button:hover {
+    background: var(--secondary);
+    transform: translateY(-2px);
+}
+
+/* NAVBAR ICON */
+.navbar nav {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.navbar nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.navbar nav a i {
+    font-size: 16px;
+    color: #ffffff;
+}
+
+.nav-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 3. HERO SECTION */
+
+.hero {
+    position: relative;
+    min-height: 850px;
+    padding: 150px 7% 100px;
+    display: flex;
+    align-items: center;
+
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(10, 30, 55, 0.75) 0%,
+            rgba(10, 30, 55, 0.45) 55%,
+            rgba(10, 30, 55, 0.20) 100%
+        ),
+        url('assets/gedung-unesa.jpg');
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+}
+
+.hero-content {
+    max-width: 700px;
+    position: relative;
+    z-index: 2;
+    color: white;
+}
+
+.hero-label {
+    display: inline-block;
+    color: white;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 15px;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 22px;
+}
+
+.hero h1 {
+    font-size: clamp(38px, 5vw, 58px);
+    line-height: 1.15;
+    color: white;
+    font-weight: 800;
+    margin-bottom: 22px;
+    letter-spacing: -1.5px;
+}
+
+.hero-content p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 16px;
+    max-width: 520px;
+    line-height: 1.9;
+    margin-bottom: 30px;
+}
+
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.btn-primary,
+.btn-secondary {
+    display: inline-block;
+    padding: 14px 23px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.btn-primary {
+    color: white;
+    background: var(--primary);
+    border: 1px solid var(--primary);
+}
+
+.btn-primary:hover {
+    background: var(--secondary);
+    border-color: var(--secondary);
+    transform: translateY(-3px);
+}
+
+.btn-secondary {
+    color: var(--primary);
+    background: white;
+    border: 1px solid #cbd5e1;
+}
+
+.btn-secondary:hover {
+    background: var(--light);
+}
+
+.hero-image {
+    width: 100%;
+    height: 390px;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 20px 45px rgba(18, 59, 112, 0.15);
+}
+
+.hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* 4. STATISTICS */
+
+.statistics {
+    padding: 35px 7%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: white;
+    gap: 20px;
+}
+
+.stat-item {
+    padding: 15px;
+    text-align: center;
+    border-right: 1px solid var(--border);
+}
+
+.stat-item:last-child {
+    border-right: none;
+}
+
+.stat-item h2 {
+    font-size: 32px;
+    color: var(--secondary);
+    margin-bottom: 5px;
+}
+
+.stat-item p {
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 600;
+}
+
+
+/* 5. GENERAL SECTION */
+
+.section {
+    padding: 85px 7%;
+}
+
+.section-heading {
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto 45px;
+}
+
+.section-heading span {
+    color: var(--secondary);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.section-heading h2 {
+    font-size: 35px;
+    color: var(--primary);
+    margin: 10px 0;
+}
+
+.section-heading p {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.8;
+}
+
+
+/* 6. DENAH KAMPUS */
+
+#denah {
+    background: #f7f9fc;
+}
+
+.map-container {
+    max-width: 1050px;
+    margin: auto;
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 8px 35px rgba(20, 43, 73, 0.06);
+}
+
+.map-info h3 {
+    font-size: 21px;
+    color: var(--primary);
+}
+
+.map-info p {
+    color: var(--text);
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.map-search {
+    display: flex;
+    gap: 10px;
+    margin: 25px 0;
+}
+
+.map-search input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.map-search input:focus {
+    border-color: var(--accent);
+}
+
+.map-search button {
+    padding: 0 25px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.map-search button:hover {
+    background: var(--secondary);
+}
+
+.map-image {
+    width: 100%;
+    min-height: 250px;
+    background: #edf3f8;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+}
+
+.map-image img {
+    width: 100%;
+    min-height: 250px;
+    max-height: 550px;
+    object-fit: contain;
+    display: block;
+}
+
+#mapMarkers {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.location-results {
+    margin-top: 20px;
+}
+
+.location-result {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    margin-bottom: 10px;
+}
+
+.location-result strong {
+    color: var(--primary);
+}
+
+.location-result p {
+    color: var(--text);
+    font-size: 12px;
+}
+
+.location-result button {
+    border: none;
+    color: white;
+    background: var(--secondary);
+    padding: 9px 15px;
+    border-radius: 6px;
+}
+
+.selected-location {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    background: var(--light);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.selected-location > span {
+    font-size: 30px;
+}
+
+.selected-location h3 {
+    color: var(--primary);
+}
+
+.selected-location p {
+    font-size: 13px;
+    color: var(--text);
+    margin-top: 5px;
+}
+
+
+/* 7. FACILITY DIRECTORY */
+
+.facilities-section {
+    background: white;
+}
+
+.facility-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
+
+.facility-card {
+    padding: 25px 22px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    transition: 0.3s;
+}
+
+.facility-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(18, 59, 112, 0.09);
+    border-color: #b8d9f5;
+}
+
+.facility-icon {
+    width: 55px;
+    height: 55px;
+    background: var(--light);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 27px;
+    margin-bottom: 18px;
+}
+
+.facility-category {
+    color: var(--secondary);
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.facility-card h3 {
+    color: var(--primary);
+    font-size: 18px;
+    margin: 8px 0;
+}
+
+.facility-card p {
+    color: var(--text);
+    font-size: 13px;
+    line-height: 1.7;
+    min-height: 65px;
+}
+
+.facility-location {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 15px;
+}
+
+.facility-button {
+    width: 100%;
+    margin-top: 18px;
+    padding: 11px;
+    background: var(--light);
+    color: var(--primary);
+    border: none;
+    border-radius: 7px;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.facility-button:hover {
+    color: white;
+    background: var(--primary);
+}
+
+
+/* 8. COMPLAINT FORM */
+
+.complaint-section {
+    background: #f0f6fc;
+}
+
+.complaint-container {
+    max-width: 750px;
+    margin: auto;
+    padding: 35px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 35px rgba(20, 43, 73, 0.06);
+}
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--dark);
+    margin-bottom: 9px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    outline: none;
+    color: var(--dark);
+    background: white;
+    transition: 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(55, 164, 232, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.form-group input[type="file"] {
+    background: #f8fafc;
+}
+
+.submit-button {
+    width: 100%;
+    cursor: pointer;
+}
+
+
+/* 9. REPORT STATUS */
+
+.status-section {
+    background: white;
+}
+
+.report-list {
+    max-width: 850px;
+    margin: auto;
+}
+
+.empty-report {
+    text-align: center;
+    color: var(--text);
+    background: #f7f9fc;
+    padding: 35px;
+    border-radius: 10px;
+}
+
+.report-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 23px;
+    margin-bottom: 18px;
+    box-shadow: 0 5px 18px rgba(20, 43, 73, 0.04);
+}
+
+.report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.report-header h3 {
+    color: var(--primary);
+    font-size: 18px;
+}
+
+.report-status {
+    background: #fff4d6;
+    color: #a66b00;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.report-card p {
+    color: var(--text);
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.report-date {
+    font-size: 11px !important;
+    color: #94a3b8 !important;
+    margin-top: 12px;
+}
+
+.report-image {
+    width: 100%;
+    max-width: 250px;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+
+/* 10. FOOTER */
+
+.footer {
+    background: #102d50;
+    color: white;
+    padding: 55px 7% 20px;
+    text-align: center;
+}
+
+.footer-content h2 {
+    font-size: 27px;
+    margin-bottom: 12px;
+}
+
+.footer-content p {
+    max-width: 480px;
+    margin: auto;
+    color: #c2d2e5;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.footer-bottom {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    color: #a9bfd7;
+    font-size: 12px;
+}
+
+
+/* 11. RESPONSIVE TABLET */
+
+@media (max-width: 1000px) {
+    .navbar {
+        padding: 0 4%;
+    }
+
+    .navbar nav {
+        gap: 15px;
+    }
+
+    .hero {
+        padding: 65px 5%;
+        gap: 30px;
+    }
+
+    .facility-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .section {
+        padding: 70px 5%;
+    }
+}
+
+
+/* 12. RESPONSIVE MOBILE */
+
+@media (max-width: 700px) {
+    .navbar {
+        padding: 15px 5%;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .navbar nav {
+        order: 3;
+        width: 100%;
+        overflow-x: auto;
+        padding: 8px 0;
+        gap: 20px;
+    }
+
+    .navbar nav a {
+        white-space: nowrap;
+        font-size: 12px;
+    }
+
+    .nav-button {
+        font-size: 11px;
+        padding: 10px 13px;
+    }
+
+    .logo {
+        font-size: 21px;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 55px 6%;
+    }
+
+    .hero h1 {
+        font-size: 39px;
+    }
+
+    .hero-content p {
+        font-size: 14px;
+    }
+
+    .hero-image {
+        height: 260px;
+    }
+
+    .statistics {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 25px 5%;
+    }
+
+    .stat-item:nth-child(2) {
+        border-right: none;
+    }
+
+    .stat-item h2 {
+        font-size: 26px;
+    }
+
+    .section {
+        padding: 60px 5%;
+    }
+
+    .section-heading h2 {
+        font-size: 28px;
+    }
+
+    .facility-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .map-container {
+        padding: 18px;
+    }
+
+    .map-search {
+        flex-direction: column;
+    }
+
+    .map-search button {
+        padding: 12px;
+    }
+
+    .complaint-container {
+        padding: 22px;
+    }
+
+    .report-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .footer {
+        padding: 45px 6% 20px;
+    }
+}
