@@ -67,6 +67,25 @@ const roomsMG1 = {
     ]
 };
 
+// ==========================================
+// DATA RUANGAN GEDUNG MG2
+// LABORATORIUM MRANGGEN
+// ==========================================
+
+const roomsMG2 = [
+    { code: "MG2.01.01", name: "Lab Tata Rias" },
+    { code: "MG2.01.02", name: "Ruang 02" },
+    { code: "MG2.01.03", name: "Ruang 03" },
+    { code: "MG2.01.04", name: "Ruang 04" },
+    { code: "MG2.01.05", name: "Ruang 05" },
+    { code: "MG2.01.06", name: "Ruang 06" },
+    { code: "MG2.01.07", name: "Ruang GYM" },
+    { code: "MG2.01.08", name: "Ruang" },
+    { code: "MG2.01.09", name: "Ruang Konseling" },
+    { code: "MG2.01.10", name: "Ruang Kesehatan" },
+    { code: "MG2.01.11", name: "Ruang Aduan Hukum" },
+    { code: "MG2.01.12", name: "Ruang Rapat" }
+];
 
 // 2. DATA FASILITAS TUNGGAL
 // Lokasi pastinya akan dicocokkan dengan denah asli.
@@ -132,8 +151,8 @@ Object.entries(roomsMG1).forEach(([floor, rooms]) => {
             <button
                 type="button"
                 class="room-location-button"
-                data-room-code="${escapeHTML(room.code)}">
-                <i class="fa-solid fa-location-dot"></i>
+                data-room-code="${room.code}">
+                <i class="fas fa-map-marker-alt"></i>
                 Lihat Lokasi
             </button>
         </div>
@@ -142,20 +161,35 @@ Object.entries(roomsMG1).forEach(([floor, rooms]) => {
 });
 
 
-// 5. DATA GEDUNG MG2
-// Menunggu pencocokan daftar lantai dan ruangan dari denah asli.
+// DAFTAR RUANGAN GEDUNG MG2
 
 const mg2Container = document.getElementById("floors-MG2");
 
 if (mg2Container) {
     mg2Container.innerHTML = `
-        <p class="directory-note">
-            Daftar lantai dan ruangan Gedung MG2 akan ditampilkan
-            setelah dicocokkan dengan denah asli.
-        </p>
+        <div class="floor-group">
+            <div class="floor-title">
+                MG2.01 — Gedung Laboratorium Mranggen
+            </div>
+
+            ${roomsMG2.map(room => `
+                <div class="room-item">
+                    <div class="room-info">
+                        <strong>${room.name}</strong>
+                        <small>${room.code}</small>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="room-location-button"
+                        data-room-code="${room.code}">
+                        <i class="fas fa-map-marker-alt"></i> Lihat Lokasi
+                    </button>
+                </div>
+            `).join("")}
+        </div>
     `;
 }
-
 
 // 6. MENAMPILKAN PILIHAN LOKASI DI BAGIAN DENAH
 
@@ -171,6 +205,30 @@ function openCampusLocation(name, detail, code = "") {
         return;
     }
 
+// MENAMPILKAN DENAH MASJID
+if (name.toLowerCase().includes("masjid")) {
+
+    renderMasjidMap(name, detail);
+
+    denahSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+    return;
+}
+
+    // MENAMPILKAN DENAH GEDUNG MG2
+    if (code && code.startsWith("MG2.")) {
+        renderMG2Map(name, detail, code);
+        
+        denahSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+        return;
+    }
 
 // MENAMPILKAN DENAH SESUAI LANTAI 
 
@@ -508,7 +566,30 @@ if (floorNumber === "03") {
                 );
 
             if (!selectedRoom) return;
+function renderMasjidMap(name, detail) {
+    const denahDisplay = document.getElementById("denahDisplay");
+    const selectedRoomTitle = document.getElementById("selectedRoomTitle");
+    const selectedRoomInfo = document.getElementById("selectedRoomInfo");
 
+    selectedRoomTitle.textContent = name || "Masjid";
+    selectedRoomInfo.textContent = detail || "Denah Masjid";
+
+    denahDisplay.innerHTML = `
+        <div style="text-align: center; padding: 15px;">
+            <img
+                src="assets/masjid.jpeg"
+                alt="Denah Masjid"
+                style="
+                    width: 100%;
+                    max-width: 900px;
+                    height: auto;
+                    border-radius: 12px;
+                    object-fit: contain;
+                "
+            >
+        </div>
+    `;
+}
             openCampusLocation(
                 selectedRoom.name,
                 "Ruangan Gedung MG1 lantai 3.",
@@ -524,9 +605,6 @@ if (floorNumber === "03") {
 
     return;
 }
-
-
-
 
 
 
@@ -1632,8 +1710,313 @@ if (floorNumber === "02") {
     });
 }
 
+// DENAH INTERAKTIF GEDUNG MG2
+function renderMG2Map(name, detail, code) {
 
-// 7. TOMBOL LIHAT LOKASI RUANGAN
+    const title = document.getElementById("selectedRoomTitle");
+    const info = document.getElementById("selectedRoomInfo");
+    const denahDisplay = document.getElementById("denahDisplay");
+    const denahSection = document.getElementById("denah");
+
+    if (!title || !info || !denahDisplay || !denahSection) {
+        console.error("Elemen denah MG2 tidak ditemukan.");
+        return;
+    }
+
+    // Posisi setiap ruangan pada denah MG2
+    const roomBoxes = [
+        { code: "MG2.01.01", x: 290, y: 100, w: 95, h: 120 },
+        { code: "MG2.01.02", x: 390, y: 100, w: 95, h: 120 },
+        { code: "MG2.01.03", x: 490, y: 100, w: 95, h: 120 },
+        { code: "MG2.01.04", x: 590, y: 100, w: 95, h: 120 },
+        { code: "MG2.01.05", x: 690, y: 100, w: 95, h: 120 },
+        { code: "MG2.01.06", x: 790, y: 100, w: 95, h: 120 },
+        { code: "MG2.01.07", x: 890, y: 100, w: 95, h: 120 },
+
+        { code: "MG2.01.08", x: 290, y: 390, w: 110, h: 100 },
+        { code: "MG2.01.09", x: 410, y: 390, w: 110, h: 100 },
+        { code: "MG2.01.10", x: 530, y: 390, w: 110, h: 100 },
+        { code: "MG2.01.11", x: 290, y: 510, w: 110, h: 100 },
+        { code: "MG2.01.12", x: 410, y: 510, w: 110, h: 100 }
+    ];
+
+    const selectedBox = roomBoxes.find(
+        room => room.code === code
+    );
+
+    const selectedPosition = selectedBox
+        ? [
+            selectedBox.x + selectedBox.w / 2,
+            selectedBox.y + selectedBox.h / 2
+        ]
+        : null;
+
+    const roomShapes = roomBoxes.map(box => {
+        const room = roomsMG2.find(
+            item => item.code === box.code
+        );
+
+        return `
+            <rect
+                x="${box.x}"
+                y="${box.y}"
+                width="${box.w}"
+                height="${box.h}"
+                rx="5"
+                fill="#d7e7f6"
+                stroke="#123B5D"
+                stroke-width="3"
+            />
+
+            <text
+                x="${box.x + box.w / 2}"
+                y="${box.y + box.h / 2 - 5}"
+                text-anchor="middle"
+                fill="#123B5D"
+                font-size="13"
+                font-weight="bold">
+                ${box.code}
+            </text>
+
+            <text
+                x="${box.x + box.w / 2}"
+                y="${box.y + box.h / 2 + 15}"
+                text-anchor="middle"
+                fill="#123B5D"
+                font-size="10">
+                ${room ? room.name : ""}
+            </text>
+        `;
+    }).join("");
+
+    const clickableRooms = roomBoxes.map(box => `
+        <rect
+            data-room-code="${box.code}"
+            x="${box.x}"
+            y="${box.y}"
+            width="${box.w}"
+            height="${box.h}"
+            fill="transparent"
+            stroke="transparent"
+            style="cursor:pointer"
+        />
+    `).join("");
+
+    title.textContent = name;
+    info.textContent = code
+        ? `${code} — ${detail}`
+        : detail;
+
+    denahDisplay.innerHTML = `
+        <div class="campus-map">
+
+            <div class="map-caption">
+                <strong>GEDUNG LABORATORIUM MRANGGEN</strong>
+                <span>DENAH MG2</span>
+            </div>
+
+            <svg
+                viewBox="0 0 1100 700"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-label="Denah interaktif Gedung Laboratorium Mranggen">
+
+                <!-- AREA DASAR -->
+                <rect
+                    x="15" y="15"
+                    width="1070" height="670"
+                    rx="12"
+                    fill="#f8fbff"
+                    stroke="#123B5D"
+                    stroke-width="3"
+                />
+
+                <!-- AREA PARKIR DOSEN -->
+                <rect
+                    x="40" y="80"
+                    width="210" height="120"
+                    rx="5"
+                    fill="#e8f1fa"
+                    stroke="#123B5D"
+                    stroke-width="3"
+                />
+                <text x="145" y="145"
+                    text-anchor="middle"
+                    fill="#123B5D"
+                    font-size="17"
+                    font-weight="bold">
+                    PARKIR DOSEN
+                </text>
+
+                <!-- AREA TOILET -->
+                <rect
+                    x="40" y="225"
+                    width="210" height="100"
+                    rx="5"
+                    fill="#e8f1fa"
+                    stroke="#123B5D"
+                    stroke-width="3"
+                />
+                <text x="145" y="282"
+                    text-anchor="middle"
+                    fill="#123B5D"
+                    font-size="17"
+                    font-weight="bold">
+                    TOILET
+                </text>
+
+                <!-- AREA RUANGAN -->
+                <g>
+                    ${roomShapes}
+                </g>
+
+                <!-- KORIDOR -->
+                <rect
+                    x="270" y="250"
+                    width="730" height="90"
+                    rx="4"
+                    fill="#ffffff"
+                    stroke="#123B5D"
+                    stroke-width="3"
+                />
+
+                <text x="635" y="302"
+                    text-anchor="middle"
+                    fill="#64748b"
+                    font-size="18">
+                    KORIDOR / SELASAR
+                </text>
+
+                <!-- AREA PARKIR MOTOR -->
+                <rect
+                    x="680" y="390"
+                    width="310" height="100"
+                    rx="5"
+                    fill="#e8f1fa"
+                    stroke="#123B5D"
+                    stroke-width="3"
+                />
+
+                <text x="835" y="445"
+                    text-anchor="middle"
+                    fill="#123B5D"
+                    font-size="17"
+                    font-weight="bold">
+                    PARKIR MOTOR
+                </text>
+
+                <!-- AREA GAZEBO -->
+                <rect
+                    x="680" y="510"
+                    width="140" height="100"
+                    rx="5"
+                    fill="#e8f1fa"
+                    stroke="#123B5D"
+                    stroke-width="3"
+                />
+
+                <text x="750" y="565"
+                    text-anchor="middle"
+                    fill="#123B5D"
+                    font-size="16"
+                    font-weight="bold">
+                    GAZEBO
+                </text>
+
+                <!-- PINTU MASUK -->
+                <rect
+                    x="850" y="510"
+                    width="140" height="100"
+                    rx="5"
+                    fill="#dcebdc"
+                    stroke="#123B5D"
+                    stroke-width="3"
+                />
+
+                <text x="920" y="565"
+                    text-anchor="middle"
+                    fill="#123B5D"
+                    font-size="16"
+                    font-weight="bold">
+                    PINTU MASUK
+                </text>
+
+                <!-- AREA KLIK RUANGAN -->
+                <g class="room-click-layer">
+                    ${clickableRooms}
+                </g>
+
+                <!-- PIN LOKASI RUANGAN -->
+                ${selectedPosition ? `
+                    <g transform="translate(
+                        ${selectedPosition[0]},
+                        ${selectedPosition[1]}
+                    )">
+                        <circle
+                            cx="0" cy="0" r="25"
+                            fill="#ef4444"
+                            opacity="0.18"
+                        />
+
+                        <circle
+                            cx="0" cy="0" r="12"
+                            fill="#ef4444"
+                            stroke="#ffffff"
+                            stroke-width="4"
+                        />
+
+                        <path
+                            d="M0 12 L-7 25 L7 25 Z"
+                            fill="#ef4444"
+                        />
+                    </g>
+                ` : ""}
+
+            </svg>
+
+            <div class="map-legend">
+                <span class="legend-dot"></span>
+                Lokasi ruangan yang dipilih
+            </div>
+
+        </div>
+    `;
+
+    // EVENT KLIK PADA DENAH MG2
+    const mg2Svg = denahDisplay.querySelector("svg");
+
+    if (mg2Svg) {
+        mg2Svg.addEventListener("click", function(event) {
+
+            const clickedRoom = event.target.closest(
+                "[data-room-code]"
+            );
+
+            if (!clickedRoom) return;
+
+            const selectedCode = clickedRoom.dataset.roomCode;
+
+            const selectedRoom = roomsMG2.find(
+                room => room.code === selectedCode
+            );
+
+            if (!selectedRoom) return;
+
+            openCampusLocation(
+                selectedRoom.name,
+                "Ruangan Gedung Laboratorium Mranggen.",
+                selectedRoom.code
+            );
+        });
+    }
+
+    denahSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+
+// 7. TOMBOL LIHAT LOKASI RUANGAN MG1 DAN MG2
 
 document.querySelectorAll(".room-location-button").forEach(button => {
 
@@ -1643,13 +2026,18 @@ document.querySelectorAll(".room-location-button").forEach(button => {
 
         let selectedRoom = null;
 
+        // Cari ruangan MG1
         Object.values(roomsMG1).forEach(rooms => {
-
             const found = rooms.find(room => room.code === code);
-
             if (found) selectedRoom = found;
-
         });
+
+        // Jika tidak ditemukan di MG1, cari di MG2
+        if (!selectedRoom) {
+            selectedRoom = roomsMG2.find(
+                room => room.code === code
+            );
+        }
 
         if (!selectedRoom) return;
 
@@ -1665,9 +2053,13 @@ document.querySelectorAll(".room-location-button").forEach(button => {
             floorDetails.open = true;
         }
 
+        const buildingName = code.startsWith("MG2.")
+            ? "Gedung Laboratorium Mranggen"
+            : "Gedung MG1";
+
         openCampusLocation(
             selectedRoom.name,
-            "Ruangan Gedung MG1.",
+            `Ruangan ${buildingName}.`,
             selectedRoom.code
         );
 
@@ -1829,53 +2221,101 @@ function updateSummary() {
 let reportChart = null;
 
 function updateChart(pending, progress, completed) {
-    const canvas = document.getElementById("reportChart");
 
-    if (!canvas || typeof Chart === "undefined") return;
+    const reports = JSON.parse(
+        localStorage.getItem("unesaksesReports") || "[]"
+    );
 
-    const chartData = [pending, progress, completed];
+    const total = reports.length;
+
+    // Mengelompokkan laporan berdasarkan kategori
+    const categories = {};
+
+    reports.forEach(report => {
+        const category = report.category || "Lainnya";
+
+        if (!categories[category]) {
+            categories[category] = {
+                pending: 0,
+                progress: 0,
+                completed: 0
+            };
+        }
+
+        if (report.status === "Menunggu") {
+            categories[category].pending++;
+        } else if (report.status === "Sedang Diperbaiki") {
+            categories[category].progress++;
+        } else if (report.status === "Selesai") {
+            categories[category].completed++;
+        }
+    });
+
+    // Ambil empat kategori dengan laporan terbanyak
+    const topCategories = Object.entries(categories)
+        .sort((a, b) =>
+            (b[1].pending + b[1].progress + b[1].completed) -
+            (a[1].pending + a[1].progress + a[1].completed)
+        )
+        .slice(0, 4);
+
+    const labels = topCategories.length
+        ? topCategories.map(item => item[0])
+        : ["Belum ada data"];
+
+    const pendingData = topCategories.map(item => item[1].pending);
+    const progressData = topCategories.map(item => item[1].progress);
+    const completedData = topCategories.map(item => item[1].completed);
+
+    const ctx = document.getElementById("reportChart");
 
     if (reportChart) {
-        reportChart.data.datasets[0].data = chartData;
-        reportChart.update();
-        return;
+        reportChart.destroy();
     }
 
-    reportChart = new Chart(canvas, {
+    reportChart = new Chart(ctx, {
         type: "bar",
 
         data: {
-            labels: [
-                "Menunggu",
-                "Sedang Diperbaiki",
-                "Selesai"
-            ],
-
-            datasets: [{
-                label: "Jumlah Laporan",
-                data: chartData,
-                backgroundColor: [
-                    "#e9b949",
-                    "#3995ce",
-                    "#38a47c"
-                ],
-                borderRadius: 8,
-                maxBarThickness: 65
-            }]
+            labels: labels,
+            datasets: [
+                {
+                    label: "Menunggu",
+                    data: pendingData,
+                    backgroundColor: "#91B1F2",
+                    stack: "status"
+                },
+                {
+                    label: "Sedang Diperbaiki",
+                    data: progressData,
+                    backgroundColor: "#5786E8",
+                    stack: "status"
+                },
+                {
+                    label: "Selesai",
+                    data: completedData,
+                    backgroundColor: "#315BB5",
+                    stack: "status"
+                }
+            ]
         },
 
         options: {
             responsive: true,
-            maintainAspectRatio: true,
+            maintainAspectRatio: false,
 
             plugins: {
                 legend: {
-                    display: false
+                    position: "top"
                 }
             },
 
             scales: {
+                x: {
+                    stacked: true
+                },
                 y: {
+                    stacked: true,
                     beginAtZero: true,
                     ticks: {
                         precision: 0
@@ -1884,8 +2324,25 @@ function updateChart(pending, progress, completed) {
             }
         }
     });
-}
 
+    // Menghitung persentase berdasarkan jumlah laporan
+    function setProgress(barId, textId, value) {
+        const percent = total > 0
+            ? Math.round((value / total) * 100)
+            : 0;
+
+        document.getElementById(barId).style.width =
+            percent + "%";
+
+        document.getElementById(textId).textContent =
+            percent + "%";
+    }
+
+    setProgress("barTotal", "percentTotal", total);
+    setProgress("barPending", "percentPending", pending);
+    setProgress("barProgress", "percentProgress", progress);
+    setProgress("barCompleted", "percentCompleted", completed);
+}
 
 // 10. MENGIRIM PENGADUAN
 
