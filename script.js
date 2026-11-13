@@ -4,235 +4,485 @@
 // ========================================
 
 
-// 1. DATA FASILITAS KAMPUS
-// Lokasi berikut masih mengikuti data contoh sebelumnya.
-// Silakan sesuaikan dengan denah dan data asli kampus.
 
-const facilities = [
-    {
-        id: 1,
-        name: "Gedung MG1",
-        category: "Akademik",
-        detail: "Area ruang kelas dan kegiatan perkuliahan mahasiswa.",
-        location: "Area Utama Kampus",
-        icon: "fa-building"
+// ==========================================
+// DIREKTORI UNESAKSES - SISTEM BARU
+// ==========================================
+
+// 1. DATA RUANGAN GEDUNG MG1
+// Nama ruangan mengikuti denah dan koreksi sementara.
+
+const roomsMG1 = {
+    "01": [
+        { code: "MG1.01.00", name: "Lobby" },
+        { code: "MG1.01.01", name: "Ruang Dosen" },
+        { code: "MG1.01.02", name: "Ruang Administrasi" },
+        { code: "MG1.01.03", name: "Area Pelayanan" },
+        { code: "MG1.01.04", name: "Ruang Koorprodi (koreksi sementara)" },
+        { code: "MG1.01.05", name: "KM/WC" },
+        { code: "MG1.01.06", name: "Ruang Koorprodi (label denah asli)" },
+        { code: "MG1.01.07", name: "Ruang Smartclass" },
+        { code: "MG1.01.08", name: "Ruang Server & Kontrol" },
+        { code: "MG1.01.09", name: "Ruang Laktasi" },
+        { code: "MG1.01.10", name: "Ruang Wakil Direktur" },
+        { code: "MG1.01.11", name: "Ruang Direktur" }
+    ],
+
+    "02": [
+        { code: "MG1.02.01", name: "KM/WC" },
+        { code: "MG1.02.02", name: "Ruang Microteaching" },
+        { code: "MG1.02.03", name: "Laboratorium Manajemen" },
+        { code: "MG1.02.04", name: "Ruang 04 (nama perlu dikonfirmasi)" },
+        { code: "MG1.02.05", name: "Ruang Server & Kontrol" },
+        { code: "MG1.02.06", name: "Ruang Kelas" },
+        { code: "MG1.02.07", name: "Ruang Kelas" },
+        { code: "MG1.02.08", name: "Gudang" },
+        { code: "MG1.02.09", name: "KM/WC" }
+    ],
+
+    "03": [
+        { code: "MG1.03.01", name: "Dak Beton" },
+        { code: "MG1.03.02", name: "KM/WC" },
+        { code: "MG1.03.03", name: "Ruang Kelas" },
+        { code: "MG1.03.04", name: "Ruang Kelas" },
+        { code: "MG1.03.05", name: "Ruang 05 (nama perlu dikonfirmasi)" },
+        { code: "MG1.03.06", name: "Ruang Server & Kontrol" },
+        { code: "MG1.03.07", name: "Ruang Kelas" },
+        { code: "MG1.03.08", name: "Ruang Kelas" },
+        { code: "MG1.03.09", name: "KM/WC" },
+        { code: "MG1.03.10", name: "Janitor" }
+    ],
+
+    "04": [
+        { code: "MG1.04.01", name: "KM/WC" },
+        { code: "MG1.04.02", name: "Ruang Rapat" },
+        { code: "MG1.04.03", name: "Ruang Rapat" },
+        { code: "MG1.04.04", name: "Ruang Rapat" },
+        { code: "MG1.04.05", name: "Ruang 05 (nama perlu dikonfirmasi)" },
+        { code: "MG1.04.06", name: "Ruang Server & Kontrol" },
+        { code: "MG1.04.07", name: "Ruang Kelas" },
+        { code: "MG1.04.08", name: "Laboratorium Komputer" },
+        { code: "MG1.04.09", name: "Gudang" },
+        { code: "MG1.04.10", name: "KM/WC" }
+    ]
+};
+
+
+// 2. DATA FASILITAS TUNGGAL
+// Lokasi pastinya akan dicocokkan dengan denah asli.
+
+const campusFacilities = {
+    "lab-tata-rias": {
+        name: "Laboratorium Tata Rias",
+        detail: "Laboratorium Tata Rias UNESA Kampus 5 Magetan."
     },
-    {
-        id: 2,
+    "perpustakaan": {
         name: "Perpustakaan",
-        category: "Akademik",
-        detail: "Tempat membaca, meminjam buku, dan belajar.",
-        location: "Area Akademik",
-        icon: "fa-book-open"
+        detail: "Fasilitas perpustakaan kampus."
     },
-    {
-        id: 3,
-        name: "Lab. Tata Rias",
-        category: "Akademik",
-        detail: "Fasilitas praktikum mahasiswa.",
-        location: "Area Laboratorium",
-        icon: "fa-flask"
-    },
-    {
-        id: 4,
+    "masjid": {
         name: "Masjid",
-        category: "Umum",
-        detail: "Tempat ibadah bagi warga kampus.",
-        location: "Area Tengah Kampus",
-        icon: "fa-mosque"
+        detail: "Tempat ibadah di lingkungan kampus."
     },
-    {
-        id: 5,
+    "foodcourt": {
         name: "Food Court",
-        category: "Umum",
-        detail: "Tempat makan dan beristirahat mahasiswa.",
-        location: "Area Komersial",
-        icon: "fa-utensils"
+        detail: "Area makanan dan tempat istirahat."
     },
-    {
-        id: 6,
-        name: "Gedung MG2",
-        category: "Akademik",
-        detail: "Area ruang kelas dan kegiatan perkuliahan mahasiswa.",
-        location: "Area Gedung MG2",
-        icon: "fa-school"
-    },
-    {
-        id: 7,
-        name: "Toilet Umum",
-        category: "Umum",
-        detail: "Fasilitas sanitasi untuk warga kampus.",
-        location: "Area Gedung Perkuliahan",
-        icon: "fa-restroom"
-    },
-    {
-        id: 8,
+    "parkiran": {
         name: "Area Parkir",
-        category: "Umum",
-        detail: "Area parkir kendaraan mahasiswa dan pengunjung.",
-        location: "Area Depan Kampus",
-        icon: "fa-square-parking"
-    },
-    {
-        id: 9,
-        name: "Lapangan",
-        category: "Olahraga",
-        detail: "Area kegiatan olahraga dan aktivitas mahasiswa.",
-        location: "Area Lapangan Kampus",
-        icon: "fa-volleyball"
+        detail: "Area parkir kendaraan kampus."
     }
-];
+};
 
 
-// 2. MENAMPILKAN DIREKTORI FASILITAS
+// 3. MEMBUKA DAN MENUTUP KARTU GEDUNG
 
-const facilityList = document.getElementById("facilityList");
+document.querySelectorAll(".building-toggle").forEach(button => {
 
-function displayFacilities(data = facilities) {
-    if (!facilityList) return;
+    button.addEventListener("click", () => {
 
-    facilityList.innerHTML = "";
+        const card = button.closest(".building-card");
 
-    data.forEach(facility => {
-        const card = document.createElement("div");
-        card.className = "facility-card";
+        if (!card) return;
 
-        card.innerHTML = `
-            <div class="facility-icon">
-                <i class="fa-solid ${facility.icon}"></i>
-            </div>
+        card.classList.toggle("active");
 
-            <span class="facility-category">
-                ${escapeHTML(facility.category)}
-            </span>
-
-            <h3>${escapeHTML(facility.name)}</h3>
-
-            <p>${escapeHTML(facility.detail)}</p>
-
-            <div class="facility-location">
-                <i class="fa-solid fa-location-dot"></i>
-                ${escapeHTML(facility.location)}
-            </div>
-
-            <button class="facility-button" data-id="${facility.id}">
-                Lihat Lokasi
-            </button>
-        `;
-
-        facilityList.appendChild(card);
     });
 
-    facilityList.querySelectorAll(".facility-button").forEach(button => {
-        button.addEventListener("click", () => {
-            const selected = facilities.find(
-                item => item.id === Number(button.dataset.id)
-            );
-
-            if (selected) {
-                document.getElementById("denah").scrollIntoView({
-                    behavior: "smooth"
-                });
-
-                showLocation(selected);
-            }
-        });
-    });
-}
-
-displayFacilities();
+});
 
 
-// 3. PENCARIAN LOKASI
+// 4. MEMBUAT DAFTAR RUANGAN GEDUNG MG1
 
-const searchInput = document.getElementById("searchLocation");
-const searchButton = document.getElementById("searchButton");
-const locationResults = document.getElementById("locationResults");
+Object.entries(roomsMG1).forEach(([floor, rooms]) => {
 
-function searchLocation() {
-    const keyword = searchInput.value.toLowerCase().trim();
-
-    if (!keyword) {
-        locationResults.innerHTML = `
-            <p>Silakan masukkan nama gedung atau fasilitas.</p>
-        `;
-        return;
-    }
-
-    const results = facilities.filter(item =>
-        item.name.toLowerCase().includes(keyword) ||
-        item.category.toLowerCase().includes(keyword) ||
-        item.location.toLowerCase().includes(keyword)
+    const roomContainer = document.getElementById(
+        `rooms-MG1-${floor}`
     );
 
-    locationResults.innerHTML = "";
+    if (!roomContainer) return;
 
-    if (results.length === 0) {
-        locationResults.innerHTML = `
-            <p>Lokasi tidak ditemukan. Coba kata kunci lain.</p>
-        `;
+    roomContainer.innerHTML = rooms.map(room => `
+        <div class="room-item">
+            <div class="room-information">
+                <strong>${escapeHTML(room.name)}</strong>
+                <small>${escapeHTML(room.code)}</small>
+            </div>
+
+            <button
+                type="button"
+                class="room-location-button"
+                data-room-code="${escapeHTML(room.code)}">
+                <i class="fa-solid fa-location-dot"></i>
+                Lihat Lokasi
+            </button>
+        </div>
+    `).join("");
+
+});
+
+
+// 5. DATA GEDUNG MG2
+// Menunggu pencocokan daftar lantai dan ruangan dari denah asli.
+
+const mg2Container = document.getElementById("floors-MG2");
+
+if (mg2Container) {
+    mg2Container.innerHTML = `
+        <p class="directory-note">
+            Daftar lantai dan ruangan Gedung MG2 akan ditampilkan
+            setelah dicocokkan dengan denah asli.
+        </p>
+    `;
+}
+
+
+// 6. MENAMPILKAN PILIHAN LOKASI DI BAGIAN DENAH
+
+
+function openCampusLocation(name, detail, code = "") {
+    const denahSection = document.getElementById("denah");
+    const denahDisplay = document.getElementById("denahDisplay");
+    const title = document.getElementById("selectedRoomTitle");
+    const info = document.getElementById("selectedRoomInfo");
+
+    if (!denahSection || !denahDisplay) {
+        alert("Bagian denah belum ditemukan.");
         return;
     }
 
-    results.forEach(item => {
-        const result = document.createElement("div");
-        result.className = "location-result";
+    // Posisi sementara penanda ruangan MG1 lantai 1
+    const roomPositions = {
+        "MG1.01.00": [190, 425],
+        "MG1.01.01": [105, 310],
+        "MG1.01.02": [105, 165],
+        "MG1.01.03": [285, 100],
+        "MG1.01.04": [405, 115],
+        "MG1.01.05": [425, 205],
+        "MG1.01.06": [565, 145],
+        "MG1.01.07": [780, 145],
+        "MG1.01.08": [930, 385],
+        "MG1.01.09": [850, 385],
+        "MG1.01.10": [750, 385],
+        "MG1.01.11": [565, 385]
+    };
 
-        result.innerHTML = `
-            <div>
-                <strong>
-                    <i class="fa-solid ${item.icon}"></i>
-                    ${escapeHTML(item.name)}
-                </strong>
-                <p>${escapeHTML(item.location)}</p>
+    const selectedPosition = roomPositions[code];
+
+    title.textContent = name;
+    info.textContent = code
+        ? `${code} — ${detail}`
+        : detail;
+
+    denahDisplay.innerHTML = `
+        <div class="campus-map">
+            <div class="map-caption">
+                <strong>GEDUNG MG1</strong>
+                <span>LANTAI 1</span>
             </div>
 
-            <button type="button">Detail</button>
-        `;
+            <svg viewBox="0 0 1050 570"
+                 xmlns="http://www.w3.org/2000/svg"
+                 role="img"
+                 aria-label="Denah skematis Gedung MG1 lantai 1">
 
-        result.querySelector("button").addEventListener("click", () => {
-            showLocation(item);
-        });
+                <rect x="15" y="15" width="1020" height="540"
+                      rx="12" fill="#f8fbff"
+                      stroke="#123B5D" stroke-width="3"/>
 
-        locationResults.appendChild(result);
-    });
-}
+                <!-- Bagian melingkar gedung -->
+                <circle cx="230" cy="280" r="205"
+                        fill="#e8f1fa" stroke="#123B5D"
+                        stroke-width="8"/>
 
-if (searchButton) {
-    searchButton.addEventListener("click", searchLocation);
-}
+                <circle cx="230" cy="280" r="105"
+                        fill="#ffffff" stroke="#123B5D"
+                        stroke-width="5"/>
 
-if (searchInput) {
-    searchInput.addEventListener("keydown", event => {
-        if (event.key === "Enter") {
-            searchLocation();
-        }
-    });
-}
+                <text x="230" y="270" text-anchor="middle"
+                      font-size="18" fill="#123B5D"
+                      font-weight="bold">AREA</text>
+                <text x="230" y="294" text-anchor="middle"
+                      font-size="18" fill="#123B5D"
+                      font-weight="bold">TENGAH</text>
+
+                <!-- Ruangan pada sisi melingkar -->
+                <g fill="#d7e7f6" stroke="#123B5D" stroke-width="3">
+                    <path d="M75 150 Q105 95 170 80 L185 175 L125 215 Z"/>
+                    <path d="M185 75 Q245 55 300 85 L285 180 L190 175 Z"/>
+                    <path d="M305 90 Q355 115 385 170 L320 220 L285 180 Z"/>
+                    <path d="M55 350 Q65 410 120 445 L165 365 L105 320 Z"/>
+                    <path d="M165 470 Q230 495 295 470 L280 385 L185 385 Z"/>
+                </g>
+
+                <!-- Ruangan bagian kanan -->
+                <g fill="#d7e7f6" stroke="#123B5D" stroke-width="3">
+                    <rect x="430" y="75" width="250" height="125"/>
+                    <rect x="680" y="75" width="190" height="125"/>
+                    <rect x="870" y="75" width="105" height="125"/>
+
+                    <rect x="430" y="350" width="250" height="110"/>
+                    <rect x="680" y="350" width="190" height="110"/>
+                    <rect x="870" y="350" width="105" height="110"/>
+                </g>
+
+                <!-- Koridor -->
+                <rect x="410" y="225" width="565" height="90"
+                      fill="#ffffff" stroke="#123B5D"
+                      stroke-width="3"/>
+
+                <text x="690" y="278" text-anchor="middle"
+                      font-size="17" fill="#64748b">
+                    KORIDOR / SELASAR
+                </text>
+
+<!-- DETAIL TOILET DAN AREA SERVIS -->
+<g stroke="#123B5D" stroke-width="2" fill="#ffffff">
+
+    <!-- Area toilet dekat koridor -->
+    <rect x="390" y="185" width="38" height="55" rx="2"/>
+    <line x1="390" y1="212" x2="428" y2="212"/>
+
+    <!-- Simbol kloset -->
+
+    <!-- Area tangga sisi kanan -->
+    <rect x="980" y="80" width="38" height="120"/>
+    <line x1="980" y1="92" x2="1018" y2="92"/>
+    <line x1="980" y1="104" x2="1018" y2="104"/>
+    <line x1="980" y1="116" x2="1018" y2="116"/>
+    <line x1="980" y1="128" x2="1018" y2="128"/>
+    <line x1="980" y1="140" x2="1018" y2="140"/>
+    <line x1="980" y1="152" x2="1018" y2="152"/>
+    <line x1="980" y1="164" x2="1018" y2="164"/>
+    <line x1="980" y1="176" x2="1018" y2="176"/>
+    <line x1="980" y1="188" x2="1018" y2="188"/>
+
+    <!-- Area tangga dekat sisi kiri bawah -->
+    <rect x="390" y="365" width="32" height="85"/>
+    <line x1="390" y1="375" x2="422" y2="375"/>
+    <line x1="390" y1="385" x2="422" y2="385"/>
+    <line x1="390" y1="395" x2="422" y2="395"/>
+    <line x1="390" y1="405" x2="422" y2="405"/>
+    <line x1="390" y1="415" x2="422" y2="415"/>
+    <line x1="390" y1="425" x2="422" y2="425"/>
+    <line x1="390" y1="435" x2="422" y2="435"/>
+</g>
+
+<!-- TOILET LAKI-LAKI DI SEBELAH KIRI TANGGA BAWAH -->
+<g stroke="#123B5D" stroke-width="2" fill="#ffffff">
+    <rect x="345" y="365" width="38" height="85" rx="2"/>
+    <line x1="345" y1="407" x2="383" y2="407"/>
+</g>
 
 
-// 4. MENAMPILKAN INFORMASI LOKASI
+<!-- GAMBAR ORANG-ORANGAN TOILET PRIA -->
+<g fill="#123B5D" stroke="#123B5D"
+   stroke-width="3" stroke-linecap="round">
 
-function showLocation(item) {
-    locationResults.innerHTML = `
-        <div class="selected-location">
-            <span>
-                <i class="fa-solid ${item.icon}"></i>
-            </span>
+    <!-- Kepala -->
+    <circle cx="364" cy="377" r="5" stroke="none"/>
 
-            <div>
-                <h3>${escapeHTML(item.name)}</h3>
-                <p>${escapeHTML(item.detail)}</p>
-                <p>
-                    <strong>Lokasi:</strong>
-                    ${escapeHTML(item.location)}
-                </p>
+    <!-- Badan -->
+    <path d="M364 384 L364 402" fill="none"/>
+
+    <!-- Tangan -->
+    <path d="M364 389 L356 398 M364 389 L372 398"
+          fill="none"/>
+
+    <!-- Kaki -->
+    <path d="M364 402 L357 415 M364 402 L371 415"
+          fill="none"/>
+</g>
+
+<!-- LABEL TOILET PRIA -->
+<text x="364" y="438" text-anchor="middle"
+      fill="#123B5D" font-size="9" font-weight="bold">
+    TOILET PRIA
+</text>
+
+
+<!-- GAMBAR ORANG-ORANGAN TOILET WANITA -->
+<g fill="#123B5D" stroke="#123B5D"
+   stroke-width="2" stroke-linecap="round">
+
+    <!-- Kepala -->
+    <circle cx="409" cy="193" r="5" stroke="none"/>
+
+    <!-- Badan dan rok -->
+    <path d="M409 200 L404 210 L414 210 Z"
+          stroke="none"/>
+
+    <!-- Tangan -->
+    <path d="M409 201 L402 207 M409 201 L416 207"
+          fill="none"/>
+
+    <!-- Kaki -->
+    <path d="M407 210 L405 220 M411 210 L413 220"
+          fill="none"/>
+</g>
+
+<!-- LABEL TOILET WANITA -->
+<text x="409" y="255" text-anchor="middle"
+      fill="#123B5D" font-size="10" font-weight="bold">
+    TOILET
+</text>
+
+<!-- LABEL TANGGA -->
+<g fill="#123B5D" font-size="10" font-weight="bold"
+   text-anchor="middle">
+    <text x="999" y="215">TANGGA</text>
+    <text x="406" y="465">TANGGA</text>
+</g>
+
+
+<!-- DETAIL PINTU DAN BUKAAN -->
+<g stroke="#123B5D" stroke-width="2" fill="none">
+
+    <!-- Pintu ruang atas -->
+    <path d="M500 200 L500 185 A15 15 0 0 1 515 200"/>
+    <path d="M680 200 L680 185 A15 15 0 0 1 695 200"/>
+    <path d="M870 200 L870 185 A15 15 0 0 1 885 200"/>
+
+    <!-- Pintu ruang bawah -->
+    <path d="M500 350 L500 365 A15 15 0 0 0 515 350"/>
+    <path d="M680 350 L680 365 A15 15 0 0 0 695 350"/>
+    <path d="M870 350 L870 365 A15 15 0 0 0 885 350"/>
+</g>
+
+<!-- LABEL AREA TAMBAHAN -->
+<g fill="#123B5D" font-size="10" font-weight="bold">
+    <text x="409" y="255" text-anchor="middle">TOILET</text>
+    <text x="999" y="215" text-anchor="middle">TANGGA</text>
+    <text x="406" y="465" text-anchor="middle">TANGGA</text>
+</g>
+
+                <!-- Label ruangan -->
+                <g font-size="14" fill="#123B5D"
+                   font-weight="bold" text-anchor="middle">
+                    <text x="115" y="150">MG1.01.02</text>
+                    <text x="245" y="105">MG1.01.03</text>
+                    <text x="350" y="145">MG1.01.04</text>
+                    <text x="100" y="345">MG1.01.01</text>
+                    <text x="230" y="445">MG1.01.00</text>
+                    <text x="425" y="215">MG1.01.05</text>
+                    <text x="555" y="135">MG1.01.06</text>
+                    <text x="775" y="135">MG1.01.07</text>
+                    <text x="920" y="185">MG1.01.08</text>
+                    <text x="920" y="445">MG1.01.09</text>
+                    <text x="775" y="420">MG1.01.10</text>
+                    <text x="555" y="420">MG1.01.11</text>
+                </g>
+
+                <!-- Penanda lokasi terpilih -->
+                ${selectedPosition ? `
+                    <g transform="translate(${selectedPosition[0]}, ${selectedPosition[1]})">
+                        <circle cx="0" cy="0" r="24"
+                                fill="#ef4444" opacity="0.18"/>
+                        <circle cx="0" cy="0" r="12"
+                                fill="#ef4444" stroke="#ffffff"
+                                stroke-width="4"/>
+                        <path d="M0 12 L-7 25 L7 25 Z"
+                              fill="#ef4444"/>
+                    </g>
+                ` : ""}
+            </svg>
+
+            <div class="map-legend">
+                <span class="legend-dot"></span>
+                Lokasi ruangan yang dipilih
             </div>
         </div>
     `;
 
-    searchInput.value = item.name;
+    denahSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
 }
+
+
+// 7. TOMBOL LIHAT LOKASI RUANGAN
+
+document.querySelectorAll(".room-location-button").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const code = button.dataset.roomCode;
+
+        let selectedRoom = null;
+
+        Object.values(roomsMG1).forEach(rooms => {
+
+            const found = rooms.find(room => room.code === code);
+
+            if (found) selectedRoom = found;
+
+        });
+
+        if (!selectedRoom) return;
+
+        const buildingCard = button.closest(".building-card");
+
+        if (buildingCard) {
+            buildingCard.classList.add("active");
+        }
+
+        const floorDetails = button.closest(".floor-group");
+
+        if (floorDetails) {
+            floorDetails.open = true;
+        }
+
+        openCampusLocation(
+            selectedRoom.name,
+            "Ruangan Gedung MG1.",
+            selectedRoom.code
+        );
+
+    });
+
+});
+
+
+// 8. TOMBOL FASILITAS TUNGGAL
+
+document.querySelectorAll(".facility-card").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        const key = button.dataset.location;
+        const facility = campusFacilities[key];
+
+        if (!facility) return;
+
+        openCampusLocation(
+            facility.name,
+            facility.detail
+        );
+
+    });
+
+});
 
 
 // 5. PENYIMPANAN LAPORAN
@@ -552,88 +802,3 @@ document.querySelectorAll(".navbar nav a").forEach(link => {
     });
 });
 
-
-
-
-// ========================================
-// 14. DENAH KAMPUS - TUJUH GAMBAR ASLI
-// ========================================
-
-const denahData = {
-    lab: {
-        nama: "Denah Gedung Lab Meranggen",
-        gambar: "assets/DENAH GEDUNG LAB. MRANGGEN.jpeg"
-    },
-
-    mg101: {
-        nama: "Denah Gedung 1 - Lantai 1",
-        gambar: "assets/DENAH GEDUNG MG.1.01.jpeg"
-    },
-
-    mg102: {
-        nama: "Denah Gedung 1 - Lantai 2",
-        gambar: "assets/DENAH GEDUNG MG1.02.jpeg"
-    },
-
-    mg103: {
-        nama: "Denah Gedung 1 - Lantai 3",
-        gambar: "assets/DENAH GEDUNG MG1.03.jpeg"
-    },
-
-    mg104: {
-        nama: "Denah Gedung 1 - Lantai 4",
-        gambar: "assets/DENAH GEDUNG MG1.04.jpeg"
-    },
-
-    foodcourt: {
-        nama: "Denah Food Court",
-        gambar: "assets/FOODCOURT.jpeg"
-    },
-
-    masjid: {
-        nama: "Denah Masjid",
-        gambar: "assets/MASJID.jpeg"
-    }
-};
-
-const denahSelect = document.getElementById("denahSelect");
-const denahDisplay = document.getElementById("denahDisplay");
-
-if (denahSelect && denahDisplay) {
-    denahSelect.addEventListener("change", function () {
-        const pilihan = denahData[this.value];
-
-        if (!pilihan) {
-            denahDisplay.innerHTML = `
-                <div class="denah-placeholder">
-                    <i class="fa-solid fa-map-location-dot"></i>
-                    <h3>Denah Kampus UNESA</h3>
-                    <p>Silakan pilih gedung atau fasilitas.</p>
-                </div>
-            `;
-            return;
-        }
-
-        denahDisplay.innerHTML = `
-            <div class="denah-image-wrapper">
-                <h3>${escapeHTML(pilihan.nama)}</h3>
-
-                <img
-                    src="${pilihan.gambar}"
-                    alt="${escapeHTML(pilihan.nama)}"
-                    class="denah-original"
-                >
-            </div>
-        `;
-
-        const gambar = denahDisplay.querySelector("img");
-
-        gambar.addEventListener("error", function () {
-            denahDisplay.innerHTML = `
-                <p class="denah-error">
-                    Gambar belum ditemukan. Periksa kembali nama file.
-                </p>
-            `;
-        });
-    });
-}

@@ -80,24 +80,182 @@
     </section>
 
 
-    <!-- DIREKTORI FASILITAS -->
-    <section class="section facilities-section" id="fasilitas">
+    
 
-        <div class="section-heading">
-            <span>CAMPUS DIRECTORY</span>
-            <h2>Direktori Fasilitas</h2>
-            <p>
-                Temukan berbagai fasilitas yang tersedia
-                di lingkungan UNESA Kampus 5 Magetan.
-            </p>
+<!-- DIREKTORI FASILITAS -->
+<section class="section facilities-section" id="fasilitas">
+
+    <div class="section-heading">
+        <span>CAMPUS DIRECTORY</span>
+        <h2>Direktori Fasilitas</h2>
+        <p>
+            Jelajahi gedung, ruangan, dan fasilitas
+            UNESA Kampus 5 Magetan dengan mudah.
+        </p>
+    </div>
+
+    <!-- GEDUNG DAN BANGUNAN -->
+    <div class="directory-heading">
+        <div>
+            <span>EXPLORE BUILDINGS</span>
+            <h3>Gedung dan Bangunan</h3>
         </div>
+        <i class="fa-solid fa-building"></i>
+    </div>
 
-        <div class="facility-grid" id="facilityList"></div>
+    <div class="directory-building-grid">
 
-    </section>
+        <!-- GEDUNG MG1 -->
+        <article class="building-card">
+
+            <button class="building-toggle" type="button"
+                data-building="MG1">
+
+                <div class="building-visual building-visual-mg1">
+                    <i class="fa-solid fa-building"></i>
+                    <span>MG1</span>
+                </div>
+
+                <div class="building-card-info">
+                    <span class="card-category">GEDUNG PERKULIAHAN</span>
+                    <h3>Gedung MG1</h3>
+                    <p>Gedung akademik dengan empat lantai dan berbagai ruangan.</p>
+                    <span class="explore-link">
+                        Jelajahi Gedung
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </div>
+
+            </button>
+
+            <div class="building-content" id="building-MG1">
+
+                <details class="floor-group">
+                    <summary>MG1.01 — Lantai 1</summary>
+                    <div class="room-list" id="rooms-MG1-01"></div>
+                </details>
+
+                <details class="floor-group">
+                    <summary>MG1.02 — Lantai 2</summary>
+                    <div class="room-list" id="rooms-MG1-02"></div>
+                </details>
+
+                <details class="floor-group">
+                    <summary>MG1.03 — Lantai 3</summary>
+                    <div class="room-list" id="rooms-MG1-03"></div>
+                </details>
+
+                <details class="floor-group">
+                    <summary>MG1.04 — Lantai 4</summary>
+                    <div class="room-list" id="rooms-MG1-04"></div>
+                </details>
+
+            </div>
+        </article>
+
+        <!-- GEDUNG MG2 -->
+        <article class="building-card">
+
+            <button class="building-toggle" type="button"
+                data-building="MG2">
+
+                <div class="building-visual building-visual-mg2">
+                    <i class="fa-solid fa-building-columns"></i>
+                    <span>MG2</span>
+                </div>
+
+                <div class="building-card-info">
+                    <span class="card-category">GEDUNG PERKULIAHAN</span>
+                    <h3>Gedung MG2</h3>
+                    <p>Temukan ruangan dan fasilitas di Gedung MG2.</p>
+                    <span class="explore-link">
+                        Jelajahi Gedung
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </span>
+                </div>
+
+            </button>
+
+            <div class="building-content" id="building-MG2">
+                <div id="floors-MG2"></div>
+            </div>
+        </article>
+
+    </div>
+
+    <!-- FASILITAS KAMPUS -->
+    <div class="directory-heading facility-heading">
+        <div>
+            <span>CAMPUS FACILITIES</span>
+            <h3>Fasilitas Kampus</h3>
+        </div>
+        <i class="fa-solid fa-map-location-dot"></i>
+    </div>
+
+    <div class="directory-facility-grid">
+
+        <button class="facility-card" type="button"
+            data-location="lab-tata-rias">
+            <span class="facility-icon icon-pink">
+                <i class="fa-solid fa-palette"></i>
+            </span>
+            <strong>Lab Tata Rias</strong>
+            <span class="facility-link">Lihat Lokasi
+                <i class="fa-solid fa-arrow-right"></i>
+            </span>
+        </button>
+
+        <button class="facility-card" type="button"
+            data-location="perpustakaan">
+            <span class="facility-icon icon-blue">
+                <i class="fa-solid fa-book-open"></i>
+            </span>
+            <strong>Perpustakaan</strong>
+            <span class="facility-link">Lihat Lokasi
+                <i class="fa-solid fa-arrow-right"></i>
+            </span>
+        </button>
+
+        <button class="facility-card" type="button"
+            data-location="masjid">
+            <span class="facility-icon icon-green">
+                <i class="fa-solid fa-mosque"></i>
+            </span>
+            <strong>Masjid</strong>
+            <span class="facility-link">Lihat Lokasi
+                <i class="fa-solid fa-arrow-right"></i>
+            </span>
+        </button>
+
+        <button class="facility-card" type="button"
+            data-location="foodcourt">
+            <span class="facility-icon icon-orange">
+                <i class="fa-solid fa-utensils"></i>
+            </span>
+            <strong>Food Court</strong>
+            <span class="facility-link">Lihat Lokasi
+                <i class="fa-solid fa-arrow-right"></i>
+            </span>
+        </button>
+
+        <button class="facility-card" type="button"
+            data-location="parkiran">
+            <span class="facility-icon icon-slate">
+                <i class="fa-solid fa-square-parking"></i>
+            </span>
+            <strong>Area Parkir</strong>
+            <span class="facility-link">Lihat Lokasi
+                <i class="fa-solid fa-arrow-right"></i>
+            </span>
+        </button>
+
+    </div>
+
+</section>
 
 
     
+
 <!-- DENAH KAMPUS -->
 <section class="section" id="denah">
 
@@ -105,31 +263,19 @@
         <span>EXPLORE CAMPUS</span>
         <h2>Denah Kampus</h2>
         <p>
-            Pilih gedung atau fasilitas untuk melihat denah
-            asli UNESA Kampus 5 Magetan.
+            Lokasi ruangan yang kamu pilih dari direktori
+            akan ditampilkan di bagian ini.
         </p>
     </div>
 
     <div class="map-container">
 
         <div class="map-info">
-            <h3>Jelajahi Denah Kampus</h3>
-            <p>Pilih salah satu denah di bawah ini.</p>
-        </div>
-
-        <div class="denah-selector">
-            <label for="denahSelect">Pilih Denah:</label>
-
-            <select id="denahSelect">
-                <option value="">-- Pilih Denah Kampus --</option>
-                <option value="lab">Gedung Lab Meranggen</option>
-                <option value="mg101">Gedung 1 - Lantai 1</option>
-                <option value="mg102">Gedung 1 - Lantai 2</option>
-                <option value="mg103">Gedung 1 - Lantai 3</option>
-                <option value="mg104">Gedung 1 - Lantai 4</option>
-                <option value="foodcourt">Food Court</option>
-                <option value="masjid">Masjid</option>
-            </select>
+            <h3 id="selectedRoomTitle">Denah Gedung MG1</h3>
+            <p id="selectedRoomInfo">
+                Pilih ruangan melalui Direktori Fasilitas
+                untuk melihat lokasi tujuannya.
+            </p>
         </div>
 
         <div class="denah-display" id="denahDisplay">
@@ -137,25 +283,15 @@
                 <i class="fa-solid fa-map-location-dot"></i>
                 <h3>Denah Kampus UNESA</h3>
                 <p>
-                    Silakan pilih gedung atau fasilitas
-                    untuk menampilkan gambar denah.
+                    Lokasi ruangan yang dipilih akan muncul
+                    secara otomatis di sini.
                 </p>
             </div>
         </div>
 
-        <div class="map-search">
-            <input
-                type="text"
-                id="searchLocation"
-                placeholder="Cari gedung atau fasilitas..."
-            >
-            <button id="searchButton">Cari</button>
-        </div>
-
-        <div id="locationResults" class="location-results"></div>
-
     </div>
 </section>
+
 
 
     <!-- PENGADUAN ONLINE -->
