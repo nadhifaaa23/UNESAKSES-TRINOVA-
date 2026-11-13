@@ -4,7 +4,10 @@
 // ========================================
 
 
-// 1. DATA LOKASI KAMPUS
+// 1. DATA FASILITAS KAMPUS
+// Lokasi berikut masih mengikuti data contoh sebelumnya.
+// Silakan sesuaikan dengan denah dan data asli kampus.
+
 const facilities = [
     {
         id: 1,
@@ -12,7 +15,7 @@ const facilities = [
         category: "Akademik",
         detail: "Area ruang kelas dan kegiatan perkuliahan mahasiswa.",
         location: "Area Utama Kampus",
-        icon: "🏢"
+        icon: "fa-building"
     },
     {
         id: 2,
@@ -20,15 +23,15 @@ const facilities = [
         category: "Akademik",
         detail: "Tempat membaca, meminjam buku, dan belajar.",
         location: "Area Akademik",
-        icon: "📚"
+        icon: "fa-book-open"
     },
     {
         id: 3,
         name: "Lab. Tata Rias",
         category: "Akademik",
         detail: "Fasilitas praktikum mahasiswa.",
-        location: "Area Lab. Tata Rias",
-        icon: "🔬"
+        location: "Area Laboratorium",
+        icon: "fa-flask"
     },
     {
         id: 4,
@@ -36,23 +39,23 @@ const facilities = [
         category: "Umum",
         detail: "Tempat ibadah bagi warga kampus.",
         location: "Area Tengah Kampus",
-        icon: "🕌"
+        icon: "fa-mosque"
     },
     {
         id: 5,
-        name: "FoodCourt",
+        name: "Food Court",
         category: "Umum",
         detail: "Tempat makan dan beristirahat mahasiswa.",
         location: "Area Komersial",
-        icon: "🍽️"
+        icon: "fa-utensils"
     },
     {
         id: 6,
         name: "Gedung MG2",
         category: "Akademik",
         detail: "Area ruang kelas dan kegiatan perkuliahan mahasiswa.",
-        location: "Mranggeen",
-        icon: "🏢"
+        location: "Area Gedung MG2",
+        icon: "fa-school"
     },
     {
         id: 7,
@@ -60,7 +63,7 @@ const facilities = [
         category: "Umum",
         detail: "Fasilitas sanitasi untuk warga kampus.",
         location: "Area Gedung Perkuliahan",
-        icon: "🚻"
+        icon: "fa-restroom"
     },
     {
         id: 8,
@@ -68,12 +71,21 @@ const facilities = [
         category: "Umum",
         detail: "Area parkir kendaraan mahasiswa dan pengunjung.",
         location: "Area Depan Kampus",
-        icon: "🅿️"
+        icon: "fa-square-parking"
+    },
+    {
+        id: 9,
+        name: "Lapangan",
+        category: "Olahraga",
+        detail: "Area kegiatan olahraga dan aktivitas mahasiswa.",
+        location: "Area Lapangan Kampus",
+        icon: "fa-volleyball"
     }
 ];
 
 
 // 2. MENAMPILKAN DIREKTORI FASILITAS
+
 const facilityList = document.getElementById("facilityList");
 
 function displayFacilities(data = facilities) {
@@ -86,15 +98,25 @@ function displayFacilities(data = facilities) {
         card.className = "facility-card";
 
         card.innerHTML = `
-            <div class="facility-icon">${facility.icon}</div>
-            <span class="facility-category">${facility.category}</span>
-            <h3>${facility.name}</h3>
-            <p>${facility.detail}</p>
-            <div class="facility-location">
-                📍 ${facility.location}
+            <div class="facility-icon">
+                <i class="fa-solid ${facility.icon}"></i>
             </div>
+
+            <span class="facility-category">
+                ${escapeHTML(facility.category)}
+            </span>
+
+            <h3>${escapeHTML(facility.name)}</h3>
+
+            <p>${escapeHTML(facility.detail)}</p>
+
+            <div class="facility-location">
+                <i class="fa-solid fa-location-dot"></i>
+                ${escapeHTML(facility.location)}
+            </div>
+
             <button class="facility-button" data-id="${facility.id}">
-                Lihat Lokasi 
+                Lihat Lokasi
             </button>
         `;
 
@@ -103,8 +125,9 @@ function displayFacilities(data = facilities) {
 
     facilityList.querySelectorAll(".facility-button").forEach(button => {
         button.addEventListener("click", () => {
-            const id = Number(button.dataset.id);
-            const selected = facilities.find(item => item.id === id);
+            const selected = facilities.find(
+                item => item.id === Number(button.dataset.id)
+            );
 
             if (selected) {
                 document.getElementById("denah").scrollIntoView({
@@ -120,7 +143,8 @@ function displayFacilities(data = facilities) {
 displayFacilities();
 
 
-// 3. FITUR PENCARIAN LOKASI
+// 3. PENCARIAN LOKASI
+
 const searchInput = document.getElementById("searchLocation");
 const searchButton = document.getElementById("searchButton");
 const locationResults = document.getElementById("locationResults");
@@ -156,10 +180,14 @@ function searchLocation() {
 
         result.innerHTML = `
             <div>
-                <strong>${item.icon} ${item.name}</strong>
-                <p>${item.location}</p>
+                <strong>
+                    <i class="fa-solid ${item.icon}"></i>
+                    ${escapeHTML(item.name)}
+                </strong>
+                <p>${escapeHTML(item.location)}</p>
             </div>
-            <button data-id="${item.id}">Detail</button>
+
+            <button type="button">Detail</button>
         `;
 
         result.querySelector("button").addEventListener("click", () => {
@@ -170,24 +198,35 @@ function searchLocation() {
     });
 }
 
-searchButton.addEventListener("click", searchLocation);
+if (searchButton) {
+    searchButton.addEventListener("click", searchLocation);
+}
 
-searchInput.addEventListener("keydown", event => {
-    if (event.key === "Enter") {
-        searchLocation();
-    }
-});
+if (searchInput) {
+    searchInput.addEventListener("keydown", event => {
+        if (event.key === "Enter") {
+            searchLocation();
+        }
+    });
+}
 
 
 // 4. MENAMPILKAN INFORMASI LOKASI
+
 function showLocation(item) {
     locationResults.innerHTML = `
         <div class="selected-location">
-            <span>${item.icon}</span>
+            <span>
+                <i class="fa-solid ${item.icon}"></i>
+            </span>
+
             <div>
-                <h3>${item.name}</h3>
-                <p>${item.detail}</p>
-                <p><strong>Lokasi:</strong> ${item.location}</p>
+                <h3>${escapeHTML(item.name)}</h3>
+                <p>${escapeHTML(item.detail)}</p>
+                <p>
+                    <strong>Lokasi:</strong>
+                    ${escapeHTML(item.location)}
+                </p>
             </div>
         </div>
     `;
@@ -196,22 +235,45 @@ function showLocation(item) {
 }
 
 
-// 5. FITUR PENGADUAN FASILITAS
+// 5. PENYIMPANAN LAPORAN
+
 const complaintForm = document.getElementById("complaintForm");
 const reportList = document.getElementById("reportList");
 
-
-// Mengambil data laporan dari localStorage
 let reports = [];
 
 try {
-    reports = JSON.parse(localStorage.getItem("unesaksesReports")) || [];
+    reports = JSON.parse(
+        localStorage.getItem("unesaksesReports")
+    ) || [];
 } catch (error) {
     reports = [];
 }
 
 
-// 6. MENAMPILKAN LAPORAN
+// Menyesuaikan laporan lama agar tetap dapat ditampilkan.
+reports = reports.map(report => ({
+    ...report,
+    location: report.location || "-",
+    status: report.status || "Menunggu"
+}));
+
+
+// 6. MENGAMANKAN TEKS
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+    })[char]);
+}
+
+
+// 7. MENAMPILKAN DAFTAR LAPORAN
+
 function displayReports() {
     if (!reportList) return;
 
@@ -233,17 +295,39 @@ function displayReports() {
         card.innerHTML = `
             <div class="report-header">
                 <h3>${escapeHTML(report.facility)}</h3>
-                <span class="report-status">${report.status}</span>
+
+                <span class="report-status">
+                    ${escapeHTML(report.status)}
+                </span>
             </div>
 
-            <p><strong>Pelapor:</strong> ${escapeHTML(report.name)}</p>
-            <p><strong>Kategori:</strong> ${escapeHTML(report.category)}</p>
+            <p>
+                <strong>Kode Laporan:</strong>
+                ${escapeHTML(report.ticket || "-")}
+            </p>
+
+            <p>
+                <strong>Lokasi:</strong>
+                ${escapeHTML(report.location)}
+            </p>
+
+            <p>
+                <strong>Kategori:</strong>
+                ${escapeHTML(report.category)}
+            </p>
+
             <p>${escapeHTML(report.description)}</p>
-            <p class="report-date">${report.date}</p>
+
+            <p class="report-date">
+                ${escapeHTML(report.date)}
+            </p>
 
             ${report.image ? `
-                <img src="${report.image}" alt="Foto laporan"
-                     class="report-image">
+                <img
+                    src="${report.image}"
+                    alt="Foto laporan"
+                    class="report-image"
+                >
             ` : ""}
         `;
 
@@ -252,104 +336,201 @@ function displayReports() {
 }
 
 
-// Mencegah teks laporan dibaca sebagai HTML
-function escapeHTML(value) {
-    return String(value).replace(/[&<>"']/g, char => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#039;"
-    })[char]);
+// 8. MEMPERBARUI RINGKASAN LAPORAN
+
+function updateSummary() {
+    const total = reports.length;
+
+    const pending = reports.filter(
+        report => report.status === "Menunggu"
+    ).length;
+
+    const progress = reports.filter(
+        report => report.status === "Sedang Diperbaiki"
+    ).length;
+
+    const completed = reports.filter(
+        report => report.status === "Selesai"
+    ).length;
+
+    document.getElementById("totalReports").textContent = total;
+    document.getElementById("pendingReports").textContent = pending;
+    document.getElementById("progressReports").textContent = progress;
+    document.getElementById("completedReports").textContent = completed;
+
+    updateChart(pending, progress, completed);
 }
 
 
-// 7. MENGIRIM PENGADUAN
-complaintForm.addEventListener("submit", function(event) {
-    event.preventDefault();
+// 9. GRAFIK PENGADUAN
 
-    const name = document.getElementById("reporterName").value.trim();
-    const facility = document.getElementById("facilityName").value.trim();
-    const category = document.getElementById("reportCategory").value;
-    const description = document.getElementById("reportDescription").value.trim();
-    const imageInput = document.getElementById("reportImage");
+let reportChart = null;
 
-    if (!name || !facility || !category || !description) {
-        alert("Mohon lengkapi semua data pengaduan.");
+function updateChart(pending, progress, completed) {
+    const canvas = document.getElementById("reportChart");
+
+    if (!canvas || typeof Chart === "undefined") return;
+
+    const chartData = [pending, progress, completed];
+
+    if (reportChart) {
+        reportChart.data.datasets[0].data = chartData;
+        reportChart.update();
         return;
     }
 
-    const file = imageInput.files[0];
+    reportChart = new Chart(canvas, {
+        type: "bar",
 
-    // Membatasi ukuran gambar
-    if (file && file.size > 2 * 1024 * 1024) {
-        alert("Ukuran gambar maksimal 2 MB.");
-        return;
-    }
+        data: {
+            labels: [
+                "Menunggu",
+                "Sedang Diperbaiki",
+                "Selesai"
+            ],
 
-    function saveReport(imageData = "") {
-        const newReport = {
-            id: Date.now(),
-            name: name,
-            facility: facility,
-            category: category,
-            description: description,
-            image: imageData,
-            status: "Menunggu",
-            date: new Date().toLocaleString("id-ID")
-        };
+            datasets: [{
+                label: "Jumlah Laporan",
+                data: chartData,
+                backgroundColor: [
+                    "#e9b949",
+                    "#3995ce",
+                    "#38a47c"
+                ],
+                borderRadius: 8,
+                maxBarThickness: 65
+            }]
+        },
 
-        reports.push(newReport);
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
 
-        try {
-            localStorage.setItem(
-                "unesaksesReports",
-                JSON.stringify(reports)
-            );
-        } catch (error) {
-            reports.pop();
-            alert("Penyimpanan gagal. Kapasitas browser mungkin penuh.");
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0
+                    }
+                }
+            }
+        }
+    });
+}
+
+
+// 10. MENGIRIM PENGADUAN
+
+if (complaintForm) {
+    complaintForm.addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const facility = document
+            .getElementById("facilityName").value.trim();
+
+        const location = document
+            .getElementById("reportLocation").value.trim();
+
+        const category = document
+            .getElementById("reportCategory").value;
+
+        const description = document
+            .getElementById("reportDescription").value.trim();
+
+        const imageInput = document.getElementById("reportImage");
+        const file = imageInput.files[0];
+
+        if (!facility || !location || !category || !description) {
+            alert("Mohon lengkapi semua data pengaduan.");
             return;
         }
 
-        displayReports();
-        complaintForm.reset();
-
-        alert("Pengaduan berhasil disimpan!");
-
-        document.getElementById("status").scrollIntoView({
-            behavior: "smooth"
-        });
-    }
-
-    if (file) {
-        if (!file.type.startsWith("image/")) {
+        if (file && !file.type.startsWith("image/")) {
             alert("File harus berupa gambar.");
             return;
         }
 
-        const reader = new FileReader();
+        if (file && file.size > 2 * 1024 * 1024) {
+            alert("Ukuran gambar maksimal 2 MB.");
+            return;
+        }
 
-        reader.onload = function() {
-            saveReport(reader.result);
-        };
+        function saveReport(imageData = "") {
+            const newReport = {
+                id: Date.now(),
+                ticket: "UNS-" + Date.now().toString().slice(-8),
+                facility: facility,
+                location: location,
+                category: category,
+                description: description,
+                image: imageData,
+                status: "Menunggu",
+                date: new Date().toLocaleString("id-ID")
+            };
 
-        reader.onerror = function() {
-            alert("Gagal membaca gambar.");
-        };
+            reports.push(newReport);
 
-        reader.readAsDataURL(file);
-    } else {
-        saveReport();
-    }
-});
+            try {
+                localStorage.setItem(
+                    "unesaksesReports",
+                    JSON.stringify(reports)
+                );
+            } catch (error) {
+                reports.pop();
+
+                alert(
+                    "Penyimpanan gagal. Ukuran foto mungkin terlalu besar."
+                );
+                return;
+            }
+
+            displayReports();
+            updateSummary();
+            complaintForm.reset();
+
+            alert(
+                "Pengaduan berhasil dikirim!\n" +
+                "Kode laporan kamu: " + newReport.ticket
+            );
+
+            document.getElementById("status").scrollIntoView({
+                behavior: "smooth"
+            });
+        }
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function() {
+                saveReport(reader.result);
+            };
+
+            reader.onerror = function() {
+                alert("Gagal membaca foto. Silakan coba lagi.");
+            };
+
+            reader.readAsDataURL(file);
+        } else {
+            saveReport();
+        }
+    });
+}
 
 
-// 8. MENAMPILKAN DATA LAPORAN SAAT WEBSITE DIBUKA
+// 11. MENAMPILKAN DATA SAAT WEBSITE DIBUKA
+
 displayReports();
+updateSummary();
 
 
-// 9. NAVBAR SCROLL EFFECT
+// 12. EFEK NAVBAR SAAT SCROLL
+
 window.addEventListener("scroll", function() {
     const navbar = document.querySelector(".navbar");
 
@@ -359,7 +540,8 @@ window.addEventListener("scroll", function() {
 });
 
 
-// 10. NAVIGASI AKTIF
+// 13. NAVIGASI AKTIF
+
 document.querySelectorAll(".navbar nav a").forEach(link => {
     link.addEventListener("click", function() {
         document.querySelectorAll(".navbar nav a").forEach(item => {
