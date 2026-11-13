@@ -97,48 +97,65 @@
     </section>
 
 
-    <!-- DENAH KAMPUS -->
-    <section class="section" id="denah">
+    
+<!-- DENAH KAMPUS -->
+<section class="section" id="denah">
 
-        <div class="section-heading">
-            <span>EXPLORE CAMPUS</span>
-            <h2>Denah Kampus</h2>
-            <p>
-                Temukan lokasi gedung, ruang kelas,
-                dan fasilitas kampus dengan lebih mudah.
-            </p>
+    <div class="section-heading">
+        <span>EXPLORE CAMPUS</span>
+        <h2>Denah Kampus</h2>
+        <p>
+            Pilih gedung atau fasilitas untuk melihat denah
+            asli UNESA Kampus 5 Magetan.
+        </p>
+    </div>
+
+    <div class="map-container">
+
+        <div class="map-info">
+            <h3>Jelajahi Denah Kampus</h3>
+            <p>Pilih salah satu denah di bawah ini.</p>
         </div>
 
-        <div class="map-container">
+        <div class="denah-selector">
+            <label for="denahSelect">Pilih Denah:</label>
 
-            <div class="map-info">
-                <h3>Peta Area Kampus</h3>
-                <p>Pilih lokasi untuk melihat informasi fasilitas.</p>
-            </div>
-
-            <div class="map-search">
-                <input
-                    type="text"
-                    id="searchLocation"
-                    placeholder="Cari gedung atau fasilitas..."
-                >
-
-                <button id="searchButton">Cari</button>
-            </div>
-
-            <div class="map-image">
-                <img
-                    src="assets/denah-kampus.jpg"
-                    alt="Denah Kampus UNESA Kampus 5 Magetan"
-                >
-
-                <div id="mapMarkers"></div>
-            </div>
-
-            <div id="locationResults" class="location-results"></div>
-
+            <select id="denahSelect">
+                <option value="">-- Pilih Denah Kampus --</option>
+                <option value="lab">Gedung Lab Meranggen</option>
+                <option value="mg101">Gedung 1 - Lantai 1</option>
+                <option value="mg102">Gedung 1 - Lantai 2</option>
+                <option value="mg103">Gedung 1 - Lantai 3</option>
+                <option value="mg104">Gedung 1 - Lantai 4</option>
+                <option value="foodcourt">Food Court</option>
+                <option value="masjid">Masjid</option>
+            </select>
         </div>
-    </section>
+
+        <div class="denah-display" id="denahDisplay">
+            <div class="denah-placeholder">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <h3>Denah Kampus UNESA</h3>
+                <p>
+                    Silakan pilih gedung atau fasilitas
+                    untuk menampilkan gambar denah.
+                </p>
+            </div>
+        </div>
+
+        <div class="map-search">
+            <input
+                type="text"
+                id="searchLocation"
+                placeholder="Cari gedung atau fasilitas..."
+            >
+            <button id="searchButton">Cari</button>
+        </div>
+
+        <div id="locationResults" class="location-results"></div>
+
+    </div>
+</section>
 
 
     <!-- PENGADUAN ONLINE -->
