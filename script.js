@@ -172,7 +172,7 @@ function openCampusLocation(name, detail, code = "") {
     }
 
 
-// MENAMPILKAN DENAH SESUAI LANTAI
+// MENAMPILKAN DENAH SESUAI LANTAI 
 
 const floorNumber = code ? code.split(".")[1] : "01";
 
@@ -185,6 +185,7 @@ const floorNumber = code ? code.split(".")[1] : "01";
 // DENAH GEDUNG MG1 LANTAI 3
 // ==========================================
 
+
 if (floorNumber === "03") {
 
     const floor3Positions = {
@@ -193,11 +194,11 @@ if (floorNumber === "03") {
         "MG1.03.03": [555, 135],
         "MG1.03.04": [805, 135],
         "MG1.03.05": [965, 135],
-        "MG1.03.06": [965, 390],
+        "MG1.03.06": [965, 405],
         "MG1.03.07": [805, 405],
         "MG1.03.08": [555, 405],
-        "MG1.03.09": [405, 385],
-        "MG1.03.10": [405, 455]
+        "MG1.03.09": [405, 405],
+        "MG1.03.10": [405, 470]
     };
 
     const selectedPosition = floor3Positions[code];
@@ -218,7 +219,7 @@ if (floorNumber === "03") {
             <svg viewBox="0 0 1050 570"
                  xmlns="http://www.w3.org/2000/svg"
                  role="img"
-                 aria-label="Denah skematis Gedung MG1 lantai 3">
+                 aria-label="Denah Gedung MG1 lantai 3">
 
                 <!-- BATAS DENAH -->
                 <rect x="15" y="15"
@@ -228,7 +229,7 @@ if (floorNumber === "03") {
                       stroke="#123B5D"
                       stroke-width="3"/>
 
-                <!-- AREA MELINGKAR / DAK BETON -->
+                <!-- KERANGKA BAGIAN KIRI -->
                 <g stroke="#123B5D"
                    stroke-width="3"
                    stroke-linejoin="round">
@@ -240,7 +241,6 @@ if (floorNumber === "03") {
                             fill="#ffffff"
                             stroke-width="4"/>
 
-                    <!-- PEMBAGIAN AREA MELINGKAR -->
                     <path d="M230 175 L190 80
                              A205 205 0 0 0 65 150
                              L145 215 Z"
@@ -270,46 +270,45 @@ if (floorNumber === "03") {
                              A205 205 0 0 1 420 205
                              L330 245 L285 175 Z"
                           fill="#d7e7f6"/>
-
-                    <path d="M330 315 L420 355
-                             A205 205 0 0 1 365 445
-                             L285 365 Z"
-                          fill="#d7e7f6"/>
-
                 </g>
 
-                <!-- AREA BANGUNAN BAGIAN KANAN -->
+                <!-- AREA TENGAH -->
+                <g fill="#123B5D"
+                   text-anchor="middle"
+                   font-weight="bold"
+                   font-size="18">
+
+                    <text x="230" y="270">DAK</text>
+                    <text x="230" y="294">BETON</text>
+                </g>
+
+                <!-- RUANGAN BAGIAN KANAN -->
                 <g fill="#d7e7f6"
                    stroke="#123B5D"
                    stroke-width="3">
 
-                    <!-- RUANG KELAS ATAS -->
                     <rect x="430" y="75"
                           width="250" height="125"/>
 
                     <rect x="680" y="75"
                           width="250" height="125"/>
 
-                    <!-- TANGGA ATAS -->
                     <rect x="930" y="75"
                           width="75" height="125"/>
 
-                    <!-- RUANG KELAS BAWAH -->
                     <rect x="430" y="350"
                           width="250" height="110"/>
 
                     <rect x="680" y="350"
                           width="250" height="110"/>
 
-                    <!-- SERVER DAN KONTROL -->
-                    <rect x="930" y="315"
-                          width="75" height="145"/>
-
+                    <rect x="930" y="350"
+                          width="75" height="110"/>
                 </g>
 
                 <!-- KORIDOR -->
-                <rect x="410" y="225"
-                      width="595" height="90"
+                <rect x="430" y="225"
+                      width="575" height="90"
                       fill="#ffffff"
                       stroke="#123B5D"
                       stroke-width="3"/>
@@ -321,102 +320,109 @@ if (floorNumber === "03") {
                     KORIDOR / SELASAR
                 </text>
 
-                <!-- AREA SERVIS SISI KIRI -->
-                <g fill="#ffffff"
-                   stroke="#123B5D"
-                   stroke-width="2">
+                <!-- AREA SERVIS -->
+                <g stroke="#123B5D"
+                   stroke-width="2"
+                   fill="#ffffff">
 
-                    <!-- TOILET ATAS -->
-                    <rect x="390" y="170"
-                          width="38" height="70"/>
+                    <!-- Toilet wanita -->
+                    <rect x="390" y="185"
+                          width="38" height="55"/>
 
-                    <!-- JANITOR -->
+                    <!-- Tangga -->
                     <rect x="390" y="365"
-                          width="38" height="45"/>
+                          width="38" height="85"/>
 
-                    <!-- TOILET BAWAH -->
-                    <rect x="390" y="410"
-                          width="38" height="50"/>
+                    <!-- Toilet pria -->
+                    <rect x="345" y="365"
+                          width="38" height="85"/>
 
+                    <!-- Janitor -->
+                    <rect x="390" y="455"
+                          width="38" height="55"/>
                 </g>
 
-                <!-- TANGGA KANAN ATAS -->
+                <!-- IKON WANITA: MG1.03.02 -->
+                <g stroke="#123B5D"
+                   stroke-width="2"
+                   fill="none"
+                   stroke-linecap="round"
+                   stroke-linejoin="round">
+
+                    <circle cx="409" cy="197" r="5"
+                            fill="#123B5D" stroke="none"/>
+
+                    <path d="M409 203 L403 216 L415 216 Z"
+                          fill="#123B5D" stroke="none"/>
+
+                    <path d="M406 216 L404 225
+                             M412 216 L414 225"/>
+                </g>
+
+                <!-- IKON TANGGA -->
                 <g stroke="#123B5D"
                    stroke-width="2"
                    fill="none">
 
                     <path d="
-                        M938 190 H997
-                        M938 180 H997
-                        M938 170 H997
-                        M938 160 H997
-                        M938 150 H997
-                        M938 140 H997
-                        M938 130 H997
-                        M938 120 H997
-                        M938 110 H997
-                        M938 100 H997
+                        M394 435
+                        V425 H400
+                        V415 H406
+                        V405 H412
+                        V395 H418
                     "/>
 
+                    <path d="M394 435 H418"/>
                 </g>
 
-                <!-- TANGGA KIRI BAWAH -->
+                <!-- IKON PRIA: MG1.03.09 -->
                 <g stroke="#123B5D"
                    stroke-width="2"
-                   fill="none">
+                   fill="none"
+                   stroke-linecap="round">
 
-                    <rect x="435" y="350"
-                          width="35" height="110"/>
+                    <circle cx="364" cy="380" r="5"
+                            fill="#123B5D" stroke="none"/>
 
-                    <path d="
-                        M435 360 H470
-                        M435 370 H470
-                        M435 380 H470
-                        M435 390 H470
-                        M435 400 H470
-                        M435 410 H470
-                        M435 420 H470
-                        M435 430 H470
-                        M435 440 H470
-                        M435 450 H470
-                    "/>
-
+                    <path d="M364 386 V405
+                             M364 391 L356 399
+                             M364 391 L372 399
+                             M364 405 L357 418
+                             M364 405 L371 418"/>
                 </g>
 
                 <!-- LABEL RUANGAN -->
-                <g fill="#123B5D"
-                   font-size="13"
+                <g font-size="14"
+                   fill="#123B5D"
                    font-weight="bold"
                    text-anchor="middle">
 
-                    <text x="230" y="275">MG1.03.01</text>
-                    <text x="230" y="295">DAK BETON</text>
-
                     <text x="555" y="135">MG1.03.03</text>
                     <text x="805" y="135">MG1.03.04</text>
-                    <text x="965" y="215">MG1.03.05</text>
+                    <text x="965" y="180">MG1.03.05</text>
 
-                    <text x="555" y="410">MG1.03.08</text>
-                    <text x="805" y="410">MG1.03.07</text>
-                    <text x="965" y="390">MG1.03.06</text>
+                    <text x="965" y="420">MG1.03.06</text>
+                    <text x="805" y="420">MG1.03.07</text>
+                    <text x="555" y="420">MG1.03.08</text>
 
-                    <text x="405" y="205">MG1.03.02</text>
-                    <text x="405" y="395">MG1.03.10</text>
-                    <text x="405" y="445">MG1.03.09</text>
-
+                    <text x="405" y="215">MG1.03.02</text>
+                    <text x="405" y="465">MG1.03.09</text>
+                    <text x="405" y="495">MG1.03.10</text>
                 </g>
 
                 <!-- AREA KLIK RUANGAN -->
-                <g fill="transparent"
+                <g class="room-click-layer"
+                   fill="transparent"
                    stroke="transparent"
                    style="cursor:pointer">
 
-                    <circle data-room-code="MG1.03.01"
-                            cx="230" cy="280" r="195"/>
+                    <path data-room-code="MG1.03.01"
+                          d="M25 75 H390 V485
+                             H95 A205 205 0 0 1 25 75 Z"/>
 
                     <rect data-room-code="MG1.03.02"
-                          x="390" y="170"
-                          width="38" height="70"/>
+                          x="390" y="185"
+                          width="38" height="55"/>
 
                     <rect data-room-code="MG1.03.03"
                           x="430" y="75"
@@ -431,25 +437,24 @@ if (floorNumber === "03") {
                           width="75" height="125"/>
 
                     <rect data-room-code="MG1.03.06"
-                          x="930" y="315"
-                          width="75" height="145"/>
+                          x="930" y="350"
+                          width="75" height="110"/>
 
                     <rect data-room-code="MG1.03.07"
                           x="680" y="350"
                           width="250" height="110"/>
 
                     <rect data-room-code="MG1.03.08"
-                          x="470" y="350"
-                          width="210" height="110"/>
+                          x="430" y="350"
+                          width="250" height="110"/>
 
                     <rect data-room-code="MG1.03.09"
-                          x="390" y="410"
-                          width="38" height="50"/>
+                          x="345" y="365"
+                          width="38" height="85"/>
 
                     <rect data-room-code="MG1.03.10"
-                          x="390" y="365"
-                          width="38" height="45"/>
-
+                          x="390" y="455"
+                          width="38" height="55"/>
                 </g>
 
                 <!-- PIN MERAH -->
@@ -509,7 +514,396 @@ if (floorNumber === "03") {
                 "Ruangan Gedung MG1 lantai 3.",
                 selectedRoom.code
             );
+        });
+    }
 
+    denahSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+    return;
+}
+
+
+
+
+
+
+if (floorNumber === "04") {
+
+    const floor4Positions = {
+    "MG1.04.01": [409, 210],
+    "MG1.04.02": [515, 135],
+    "MG1.04.03": [680, 135],
+    "MG1.04.04": [845, 135],
+    "MG1.04.05": [965, 135],
+    "MG1.04.06": [965, 405],
+    "MG1.04.07": [805, 405],
+    "MG1.04.08": [555, 405],
+    "MG1.04.10": [364, 405]
+};
+
+    const selectedPosition = floor4Positions[code];
+
+    title.textContent = name;
+    info.textContent = code
+        ? `${code} — ${detail}`
+        : detail;
+
+    denahDisplay.innerHTML = `
+        <div class="campus-map">
+
+            <div class="map-caption">
+                <strong>GEDUNG MG1</strong>
+                <span>LANTAI 4</span>
+            </div>
+
+            <svg viewBox="0 0 1050 570"
+                 xmlns="http://www.w3.org/2000/svg"
+                 role="img"
+                 aria-label="Denah Gedung MG1 lantai 4">
+
+                <!-- BATAS DENAH: SAMA DENGAN LANTAI 3 -->
+                <rect x="15" y="15"
+                      width="1020" height="540"
+                      rx="12"
+                      fill="#f8fbff"
+                      stroke="#123B5D"
+                      stroke-width="3"/>
+
+                <!-- BENTUK AREA KIRI: SAMA DENGAN LANTAI 3 -->
+                <g stroke="#123B5D"
+                   stroke-width="3"
+                   stroke-linejoin="round">
+
+                    <circle cx="230" cy="280" r="205"
+                            fill="#e8f1fa"/>
+
+                    <circle cx="230" cy="280" r="105"
+                            fill="#ffffff"
+                            stroke-width="4"/>
+
+                    <path d="M230 175 L190 80
+                             A205 205 0 0 0 65 150
+                             L145 215 Z"
+                          fill="#d7e7f6"/>
+
+                    <path d="M145 215 L65 150
+                             A205 205 0 0 0 35 330
+                             L125 330 Z"
+                          fill="#d7e7f6"/>
+
+                    <path d="M125 330 L35 330
+                             A205 205 0 0 0 95 445
+                             L175 365 Z"
+                          fill="#d7e7f6"/>
+
+                    <path d="M175 365 L95 445
+                             A205 205 0 0 0 365 445
+                             L285 365 Z"
+                          fill="#d7e7f6"/>
+
+                    <path d="M190 80
+                             A205 205 0 0 1 300 95
+                             L285 175 L230 175 Z"
+                          fill="#d7e7f6"/>
+
+                    <path d="M300 95
+                             A205 205 0 0 1 420 205
+                             L330 245 L285 175 Z"
+                          fill="#d7e7f6"/>
+                </g>
+
+                <!-- AREA TENGAH: SAMA DENGAN LANTAI 3 -->
+                <g fill="#123B5D"
+                   text-anchor="middle"
+                   font-weight="bold"
+                   font-size="18">
+
+                    <text x="230" y="270">DAK</text>
+                    <text x="230" y="294">BETON</text>
+                </g>
+
+                <!-- RUANGAN BAGIAN KANAN -->
+                <g fill="#d7e7f6"
+                   stroke="#123B5D"
+                   stroke-width="3">
+
+                    <!-- RUANG RAPAT 02 -->
+                    <rect x="430" y="75"
+                          width="167" height="125"/>
+
+                    <!-- RUANG RAPAT 03 -->
+                    <rect x="597" y="75"
+                          width="167" height="125"/>
+
+                    <!-- RUANG RAPAT 04 -->
+                    <rect x="764" y="75"
+                          width="166" height="125"/>
+
+                    <!-- TANGGA 05 -->
+                    <rect x="930" y="75"
+                          width="75" height="125"/>
+
+                    <!-- LABORATORIUM KOMPUTER 08 -->
+                    <rect x="430" y="350"
+                          width="250" height="110"/>
+
+                    <!-- RUANG KELAS 07 -->
+                    <rect x="680" y="350"
+                          width="250" height="110"/>
+
+                    <!-- RUANG SERVER 06 -->
+                    <rect x="930" y="350"
+                          width="75" height="110"/>
+                </g>
+
+                <!-- KORIDOR: SAMA DENGAN LANTAI 3 -->
+                <rect x="430" y="225"
+                      width="575" height="90"
+                      fill="#ffffff"
+                      stroke="#123B5D"
+                      stroke-width="3"/>
+
+                <text x="705" y="278"
+                      text-anchor="middle"
+                      fill="#64748b"
+                      font-size="17">
+                    KORIDOR / SELASAR
+                </text>
+
+                <!-- AREA SERVIS KIRI -->
+<g stroke="#123B5D"
+   stroke-width="2"
+   fill="#ffffff">
+
+    <!-- KM/WC PEREMPUAN 01 -->
+<rect x="390" y="185"
+      width="38" height="55"
+      fill="#ffffff"
+      stroke="#123B5D"
+      stroke-width="2"/>
+
+<!-- IKON PEREMPUAN -->
+<g stroke="#123B5D"
+   stroke-width="2"
+   fill="none"
+   stroke-linecap="round"
+   stroke-linejoin="round">
+
+    <circle cx="409" cy="197" r="5"
+            fill="#123B5D" stroke="none"/>
+
+    <path d="M409 203 L402 218 H416 Z"
+          fill="#123B5D"
+          stroke="none"/>
+
+    <path d="M406 218 L404 226
+             M412 218 L414 226"/>
+</g>
+
+<!-- KM/WC PRIA 10 -->
+<rect x="345" y="365"
+      width="38" height="85"
+      fill="#ffffff"
+      stroke="#123B5D"
+      stroke-width="2"/>
+
+<!-- IKON PRIA -->
+<g stroke="#123B5D"
+   stroke-width="2"
+   fill="none"
+   stroke-linecap="round">
+
+    <circle cx="364" cy="380" r="5"
+            fill="#123B5D"
+            stroke="none"/>
+
+    <path d="M364 386 V405
+             M364 391 L356 399
+             M364 391 L372 399
+             M364 405 L357 418
+             M364 405 L371 418"/>
+</g>
+
+<!-- TANGGA DI SAMPING KIRI LAB KOMPUTER -->
+<rect x="390" y="350"
+      width="40" height="110"
+      fill="#ffffff"
+      stroke="#123B5D"
+      stroke-width="2"/>
+
+<!-- GAMBAR ANAK TANGGA -->
+<g stroke="#123B5D"
+   stroke-width="2"
+   fill="none">
+
+    <path d="
+        M395 445
+        V435 H401
+        V425 H407
+        V415 H413
+        V405 H419
+        V395 H425
+    "/>
+
+    <path d="M395 445 H425"/>
+</g>
+
+                <!-- PERLENGKAPAN RUANG SERVER -->
+                <g stroke="#123B5D"
+                   stroke-width="2"
+                   fill="#ffffff">
+
+                    <rect x="942" y="370"
+                          width="50" height="18"
+                          rx="2"/>
+
+                    <rect x="942" y="394"
+                          width="50" height="18"
+                          rx="2"/>
+
+                    <rect x="942" y="418"
+                          width="50" height="18"
+                          rx="2"/>
+                </g>
+
+                <!-- LABEL RUANGAN -->
+                <g font-size="13"
+                   fill="#123B5D"
+                   font-weight="bold"
+                   text-anchor="middle">
+
+                    <text x="409" y="230">MG1.04.01</text>
+
+                    <text x="513" y="130">RUANG RAPAT</text>
+                    <text x="513" y="150">MG1.04.02</text>
+
+                    <text x="680" y="130">RUANG RAPAT</text>
+                    <text x="680" y="150">MG1.04.03</text>
+
+                    <text x="847" y="130">RUANG RAPAT</text>
+                    <text x="847" y="150">MG1.04.04</text>
+
+                    <text x="967" y="190">MG1.04.05</text>
+
+                    <text x="967" y="445">MG1.04.06</text>
+
+                    <text x="805" y="405">RUANG KELAS</text>
+                    <text x="805" y="425">MG1.04.07</text>
+
+                    <text x="555" y="405">LAB. KOMPUTER</text>
+                    <text x="555" y="425">MG1.04.08</text>
+
+                    <text x="364" y="465">MG1.04.09</text>
+                    <text x="409" y="445">MG1.04.10</text>
+                </g>
+
+                <!-- AREA KLIK RUANGAN -->
+                <g class="room-click-layer"
+                   fill="transparent"
+                   stroke="transparent"
+                   style="cursor:pointer">
+
+                    <rect data-room-code="MG1.04.01"
+                          x="390" y="185"
+                          width="38" height="55"/>
+
+                    <rect data-room-code="MG1.04.02"
+                          x="430" y="75"
+                          width="167" height="125"/>
+
+                    <rect data-room-code="MG1.04.03"
+                          x="597" y="75"
+                          width="167" height="125"/>
+
+                    <rect data-room-code="MG1.04.04"
+                          x="764" y="75"
+                          width="166" height="125"/>
+
+                    <rect data-room-code="MG1.04.05"
+                          x="930" y="75"
+                          width="75" height="125"/>
+
+                    <rect data-room-code="MG1.04.06"
+                          x="930" y="350"
+                          width="75" height="110"/>
+
+                    <rect data-room-code="MG1.04.07"
+                          x="680" y="350"
+                          width="250" height="110"/>
+
+                    <rect data-room-code="MG1.04.08"
+                          x="430" y="350"
+                          width="250" height="110"/>
+
+                    <rect data-room-code="MG1.04.09"
+                          x="345" y="365"
+                          width="38" height="85"/>
+
+                    <rect data-room-code="MG1.04.10"
+                          x="345" y="365"
+                          width="38" height="85"/>
+                </g>
+
+                <!-- PIN MERAH -->
+                ${selectedPosition ? `
+                    <g transform="translate(
+                        ${selectedPosition[0]},
+                        ${selectedPosition[1]}
+                    )">
+
+                        <circle cx="0" cy="0" r="24"
+                                fill="#ef4444"
+                                opacity="0.18"/>
+
+                        <circle cx="0" cy="0" r="12"
+                                fill="#ef4444"
+                                stroke="#ffffff"
+                                stroke-width="4"/>
+
+                        <path d="M0 12 L-7 25 L7 25 Z"
+                              fill="#ef4444"/>
+                    </g>
+                ` : ""}
+
+            </svg>
+
+            <div class="map-legend">
+                <span class="legend-dot"></span>
+                Lokasi ruangan yang dipilih
+            </div>
+
+        </div>
+    `;
+
+    // EVENT KLIK RUANGAN LANTAI 4
+    const floor4Svg = denahDisplay.querySelector("svg");
+
+    if (floor4Svg) {
+        floor4Svg.addEventListener("click", function(event) {
+
+            const clickedRoom =
+                event.target.closest("[data-room-code]");
+
+            if (!clickedRoom) return;
+
+            const selectedCode =
+                clickedRoom.dataset.roomCode;
+
+            const selectedRoom =
+                roomsMG1["04"].find(
+                    room => room.code === selectedCode
+                );
+
+            if (!selectedRoom) return;
+
+            openCampusLocation(
+                selectedRoom.name,
+                "Ruangan Gedung MG1 lantai 4.",
+                selectedRoom.code
+            );
         });
     }
 
@@ -715,6 +1109,29 @@ if (floorNumber === "02") {
         V395 H418
     "/>
     <path d="M394 435 H418"/>
+</g>
+
+<!-- IKON PEREMPUAN: MG1.04.01 -->
+<g stroke="#123B5D"
+   stroke-width="2"
+   fill="none"
+   stroke-linecap="round"
+   stroke-linejoin="round">
+
+    <!-- Kepala -->
+    <circle cx="409" cy="197" r="5"
+            fill="#123B5D" stroke="none"/>
+
+    <!-- Badan dan rok -->
+    <path d="M409 203
+             L402 218
+             H416 Z"
+          fill="#123B5D"
+          stroke="none"/>
+
+    <!-- Kaki -->
+    <path d="M406 218 L404 226
+             M412 218 L414 226"/>
 </g>
 
 <!-- IKON PRIA -->
