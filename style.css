@@ -1029,3 +1029,89 @@ body {
         padding: 18px;
     }
 }
+
+
+
+
+/* ========================================
+   TAMPILAN DENAH KAMPUS UNESAKSES
+======================================== */
+
+.denah-selector {
+    margin: 20px 0;
+}
+
+.denah-selector label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #123B5D;
+}
+
+.denah-selector select {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #d8e1eb;
+    border-radius: 10px;
+    background: #ffffff;
+    color: #123B5D;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.denah-display {
+    margin-top: 25px;
+    padding: 22px;
+    background: #f5f8fc;
+    border: 1px solid #e2eaf2;
+    border-radius: 16px;
+    text-align: center;
+}
+
+.denah-placeholder {
+    padding: 45px 15px;
+    color: #718096;
+}
+
+.denah-placeholder i {
+    font-size: 45px;
+    color: #123B5D;
+    margin-bottom: 15px;
+}
+
+.denah-placeholder h3 {
+    color: #123B5D;
+    margin-bottom: 10px;
+}
+
+.denah-image-wrapper h3 {
+    color: #123B5D;
+    margin-bottom: 20px;
+}
+
+.denah-original {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 750px;
+    object-fit: contain;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 10px;
+}
+
+.denah-error {
+    color: #c0392b;
+    padding: 20px;
+}
+
+@media (max-width: 600px) {
+    .denah-display {
+        padding: 12px;
+    }
+
+    .denah-original {
+        max-height: 550px;
+    }
+}

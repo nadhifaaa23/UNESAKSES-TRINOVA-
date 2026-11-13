@@ -551,3 +551,89 @@ document.querySelectorAll(".navbar nav a").forEach(link => {
         this.classList.add("active");
     });
 });
+
+
+
+
+// ========================================
+// 14. DENAH KAMPUS - TUJUH GAMBAR ASLI
+// ========================================
+
+const denahData = {
+    lab: {
+        nama: "Denah Gedung Lab Meranggen",
+        gambar: "assets/DENAH GEDUNG LAB. MRANGGEN.jpeg"
+    },
+
+    mg101: {
+        nama: "Denah Gedung 1 - Lantai 1",
+        gambar: "assets/DENAH GEDUNG MG.1.01.jpeg"
+    },
+
+    mg102: {
+        nama: "Denah Gedung 1 - Lantai 2",
+        gambar: "assets/DENAH GEDUNG MG1.02.jpeg"
+    },
+
+    mg103: {
+        nama: "Denah Gedung 1 - Lantai 3",
+        gambar: "assets/DENAH GEDUNG MG1.03.jpeg"
+    },
+
+    mg104: {
+        nama: "Denah Gedung 1 - Lantai 4",
+        gambar: "assets/DENAH GEDUNG MG1.04.jpeg"
+    },
+
+    foodcourt: {
+        nama: "Denah Food Court",
+        gambar: "assets/FOODCOURT.jpeg"
+    },
+
+    masjid: {
+        nama: "Denah Masjid",
+        gambar: "assets/MASJID.jpeg"
+    }
+};
+
+const denahSelect = document.getElementById("denahSelect");
+const denahDisplay = document.getElementById("denahDisplay");
+
+if (denahSelect && denahDisplay) {
+    denahSelect.addEventListener("change", function () {
+        const pilihan = denahData[this.value];
+
+        if (!pilihan) {
+            denahDisplay.innerHTML = `
+                <div class="denah-placeholder">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <h3>Denah Kampus UNESA</h3>
+                    <p>Silakan pilih gedung atau fasilitas.</p>
+                </div>
+            `;
+            return;
+        }
+
+        denahDisplay.innerHTML = `
+            <div class="denah-image-wrapper">
+                <h3>${escapeHTML(pilihan.nama)}</h3>
+
+                <img
+                    src="${pilihan.gambar}"
+                    alt="${escapeHTML(pilihan.nama)}"
+                    class="denah-original"
+                >
+            </div>
+        `;
+
+        const gambar = denahDisplay.querySelector("img");
+
+        gambar.addEventListener("error", function () {
+            denahDisplay.innerHTML = `
+                <p class="denah-error">
+                    Gambar belum ditemukan. Periksa kembali nama file.
+                </p>
+            `;
+        });
+    });
+}
