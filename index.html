@@ -2,11 +2,14 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UNESAKSES - Akses Informasi Kampus</title>
+
+    <!-- Font Awesome untuk ikon -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,32 +22,36 @@
 
         <nav>
             <a href="#beranda">
-                <i class="fa-solid fa-house"></i>
-                Beranda
-            </a>
-
-            <a href="#denah">
-                <i class="fa-solid fa-map-location-dot"></i>
-                Denah Kampus
+                <i class="fa-solid fa-house"></i> Beranda
             </a>
 
             <a href="#fasilitas">
-                <i class="fa-solid fa-building"></i>
-                Fasilitas
+                <i class="fa-solid fa-building"></i> Fasilitas
+            </a>
+
+            <a href="#denah">
+                <i class="fa-solid fa-map-location-dot"></i> Denah Kampus
             </a>
 
             <a href="#pengaduan">
-                <i class="fa-solid fa-bullhorn"></i>
-                Pengaduan
+                <i class="fa-solid fa-bullhorn"></i> Pengaduan
+            </a>
+
+            <a href="#status">
+                <i class="fa-solid fa-chart-column"></i> Status Laporan
             </a>
         </nav>
 
-        <a href="#pengaduan" class="nav-button">Laporkan Masalah</a>
+        <a href="#pengaduan" class="nav-button">
+            Laporkan Masalah
+        </a>
     </header>
 
-    <!-- HERO -->
+
+    <!-- BERANDA -->
     <section class="hero" id="beranda">
         <div class="hero-content">
+
             <span class="hero-label">SMART CAMPUS ACCESS</span>
 
             <h1>
@@ -53,52 +60,57 @@
             </h1>
 
             <p>
-                Temukan tempatnya, rasakan mudahnya, nikmati setiap langkahnya.
+                UNESAKSES hadir untuk membantu mahasiswa menemukan
+                ruang kelas, menjelajahi berbagai fasilitas kampus,
+                memperoleh informasi lokasi, serta melaporkan
+                kendala fasilitas dengan lebih mudah.
             </p>
 
             <div class="hero-buttons">
-                <a href="#denah" class="btn-primary">Jelajahi Denah</a>
-                <a href="#pengaduan" class="btn-secondary">Buat Pengaduan</a>
+                <a href="#denah" class="btn-primary">
+                    Jelajahi Denah
+                </a>
+
+                <a href="#pengaduan" class="btn-secondary">
+                    Buat Pengaduan
+                </a>
             </div>
+
         </div>
+    </section>
+
+
+    <!-- DIREKTORI FASILITAS -->
+    <section class="section facilities-section" id="fasilitas">
+
+        <div class="section-heading">
+            <span>CAMPUS DIRECTORY</span>
+            <h2>Direktori Fasilitas</h2>
+            <p>
+                Temukan berbagai fasilitas yang tersedia
+                di lingkungan UNESA Kampus 5 Magetan.
+            </p>
+        </div>
+
+        <div class="facility-grid" id="facilityList"></div>
 
     </section>
 
-    <!-- STATISTIK -->
-    <section class="statistics">
-        <div class="stat-item">
-            <h2>01</h2>
-            <p>Denah Kampus</p>
-        </div>
-
-        <div class="stat-item">
-            <h2>02</h2>
-            <p>Informasi Fasilitas</p>
-        </div>
-
-        <div class="stat-item">
-            <h2>03</h2>
-            <p>Pengaduan Online</p>
-        </div>
-
-        <div class="stat-item">
-            <h2>04</h2>
-            <p>Informasi Laporan</p>
-        </div>
-    </section>
 
     <!-- DENAH KAMPUS -->
     <section class="section" id="denah">
+
         <div class="section-heading">
             <span>EXPLORE CAMPUS</span>
             <h2>Denah Kampus</h2>
             <p>
-                Temukan lokasi gedung dan fasilitas kampus
-                dengan lebih mudah.
+                Temukan lokasi gedung, ruang kelas,
+                dan fasilitas kampus dengan lebih mudah.
             </p>
         </div>
 
         <div class="map-container">
+
             <div class="map-info">
                 <h3>Peta Area Kampus</h3>
                 <p>Pilih lokasi untuk melihat informasi fasilitas.</p>
@@ -110,41 +122,35 @@
                     id="searchLocation"
                     placeholder="Cari gedung atau fasilitas..."
                 >
+
                 <button id="searchButton">Cari</button>
             </div>
 
             <div class="map-image">
-                <img src="assets/denah-kampus.jpg" alt="Denah Kampus">
+                <img
+                    src="assets/denah-kampus.jpg"
+                    alt="Denah Kampus UNESA Kampus 5 Magetan"
+                >
 
                 <div id="mapMarkers"></div>
             </div>
 
             <div id="locationResults" class="location-results"></div>
+
         </div>
     </section>
 
-    <!-- FASILITAS -->
-    <section class="section facilities-section" id="fasilitas">
-        <div class="section-heading">
-            <span>CAMPUS DIRECTORY</span>
-            <h2>Direktori Fasilitas</h2>
-            <p>
-                Informasi berbagai fasilitas yang tersedia
-                di lingkungan kampus.
-            </p>
-        </div>
 
-        <div class="facility-grid" id="facilityList"></div>
-    </section>
-
-    <!-- PENGADUAN -->
+    <!-- PENGADUAN ONLINE -->
     <section class="section complaint-section" id="pengaduan">
+
         <div class="section-heading">
             <span>REPORT FACILITY</span>
             <h2>Pengaduan Fasilitas</h2>
             <p>
                 Temukan fasilitas yang mengalami kerusakan?
-                Sampaikan laporan agar dapat segera ditindaklanjuti oleh rindu.
+                Sampaikan laporan agar dapat segera ditindaklanjuti
+                oleh pihak pengelola kampus.
             </p>
         </div>
 
@@ -153,32 +159,37 @@
             <form id="complaintForm">
 
                 <div class="form-group">
-                    <label for="reporterName">Nama Pelapor</label>
-                    <input
-                        type="text"
-                        id="reporterName"
-                        placeholder="Masukkan nama kamu"
-                        required
-                    >
-                </div>
-
-                <div class="form-group">
                     <label for="facilityName">Nama Fasilitas</label>
+
                     <input
                         type="text"
                         id="facilityName"
-                        placeholder="Contoh: Ruang Kelas A101"
+                        placeholder="Contoh: Ruang Kelas MG1"
                         required
                     >
                 </div>
 
                 <div class="form-group">
-                    <label for="reportCategory">Kategori Kerusakan</label>
+                    <label for="reportLocation">Lokasi Fasilitas</label>
+
+                    <input
+                        type="text"
+                        id="reportLocation"
+                        placeholder="Tuliskan lokasi fasilitas..."
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="reportCategory">Kategori Pengaduan</label>
+
                     <select id="reportCategory" required>
                         <option value="">Pilih kategori</option>
+                        <option value="Ruang Kelas">Ruang Kelas</option>
                         <option value="Kelistrikan">Kelistrikan</option>
                         <option value="Toilet">Toilet</option>
-                        <option value="Ruang Kelas">Ruang Kelas</option>
+                        <option value="Tempat Ibadah">Tempat Ibadah</option>
+                        <option value="Parkir">Parkir</option>
                         <option value="Kebersihan">Kebersihan</option>
                         <option value="Fasilitas Umum">Fasilitas Umum</option>
                         <option value="Lainnya">Lainnya</option>
@@ -186,17 +197,21 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="reportDescription">Deskripsi Pengaduan</label>
+                    <label for="reportDescription">
+                        Deskripsi Pengaduan
+                    </label>
+
                     <textarea
                         id="reportDescription"
                         rows="5"
-                        placeholder="Jelaskan kerusakan fasilitas..."
+                        placeholder="Jelaskan kerusakan atau kendala fasilitas..."
                         required
                     ></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="reportImage">Foto Kerusakan (Opsional)</label>
+
                     <input
                         type="file"
                         id="reportImage"
@@ -204,7 +219,11 @@
                     >
                 </div>
 
-                <button type="submit" class="btn-primary submit-button">
+                <button
+                    type="submit"
+                    class="btn-primary submit-button"
+                >
+                    <i class="fa-solid fa-paper-plane"></i>
                     Kirim Pengaduan
                 </button>
 
@@ -213,36 +232,110 @@
         </div>
     </section>
 
-    <!-- STATUS PENGADUAN -->
+
+    <!-- INFORMASI LAPORAN DAN GRAFIK -->
     <section class="section status-section" id="status">
+
         <div class="section-heading">
             <span>REPORT TRACKING</span>
-            <h2>Status Pengaduan</h2>
-            <p>Pantau perkembangan laporan fasilitas kampus.</p>
-        </div>
-
-        <div class="report-list" id="reportList">
-            <p class="empty-report">
-                Belum ada laporan yang dikirim.
+            <h2>Informasi Laporan</h2>
+            <p>
+                Pantau ringkasan pengaduan dan perkembangan
+                laporan fasilitas kampus.
             </p>
         </div>
+
+        <!-- RINGKASAN LAPORAN -->
+        <div class="report-summary" id="reportSummary">
+
+            <div class="summary-card">
+                <div class="summary-icon">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                </div>
+                <p>Total Laporan</p>
+                <h3 id="totalReports">0</h3>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-icon">
+                    <i class="fa-solid fa-clock"></i>
+                </div>
+                <p>Menunggu Tindak Lanjut</p>
+                <h3 id="pendingReports">0</h3>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-icon">
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                </div>
+                <p>Sedang Diperbaiki</p>
+                <h3 id="progressReports">0</h3>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <p>Laporan Selesai</p>
+                <h3 id="completedReports">0</h3>
+            </div>
+
+        </div>
+
+        <!-- GRAFIK -->
+        <div class="chart-container">
+
+            <h3>Grafik Ringkasan Pengaduan</h3>
+
+            <p>
+                Jumlah laporan berdasarkan status penanganan.
+            </p>
+
+            <canvas id="reportChart"></canvas>
+
+        </div>
+
+        <!-- DAFTAR LAPORAN -->
+        <div class="report-list-container">
+
+            <h3>Daftar Laporan</h3>
+
+            <div class="report-list" id="reportList">
+                <p class="empty-report">
+                    Belum ada laporan yang dikirim.
+                </p>
+            </div>
+
+        </div>
+
     </section>
+
 
     <!-- FOOTER -->
     <footer class="footer">
+
         <div class="footer-content">
             <h2>UNESAKSES</h2>
+
             <p>
-                Satu platform untuk kemudahan akses informasi
-                dan kenyamanan fasilitas kampus.
+                Satu platform untuk kemudahan akses informasi,
+                pencarian fasilitas, dan kenyamanan lingkungan
+                UNESA Kampus 5 Magetan.
             </p>
         </div>
 
         <div class="footer-bottom">
             © 2026 UNESAKSES. All Rights Reserved.
         </div>
+
     </footer>
 
+
+    <!-- LIBRARY GRAFIK -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- JAVASCRIPT UTAMA -->
     <script src="script.js"></script>
+
 </body>
 </html>

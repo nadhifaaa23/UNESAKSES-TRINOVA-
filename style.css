@@ -174,8 +174,8 @@ transition: 0.3s;
             rgba(10, 30, 55, 0.20) 100%
         ),
         url('assets/gedung-unesa.jpg');
-    background-size: cover;
-    background-position: center;
+    background-size: 100% 100%;
+    background-position: center center;
     background-repeat: no-repeat;
 }
 
@@ -871,4 +871,161 @@ html::-webkit-scrollbar-thumb:hover {
 body {
     margin: 0;
     overflow-x: hidden; 
+}
+
+/* 14. Naikkan Tulisan SMART CAMPUS ACCESS */
+.hero-label {
+    position: relative;
+    top: -15px
+}
+
+/* 15. Turunkan tombol*/
+.hero-buttons {
+    position: relative;
+    top: 15px;
+}
+
+
+
+/* ==========================================
+   UNESAKSES - PEMBARUAN TAMPILAN
+========================================== */
+
+/* Warna utama UNESAKSES */
+:root {
+    --primary: #123B5D;
+    --secondary: #1769aa;
+}
+
+/* Ikon fasilitas */
+.facility-icon {
+    color: #123B5D;
+    background: #edf5fc;
+}
+
+.facility-icon i {
+    font-size: 25px;
+}
+
+/* Informasi lokasi tanpa emoji */
+.facility-location i {
+    color: #1769aa;
+    margin-right: 6px;
+}
+
+/* Ringkasan laporan */
+.report-summary {
+    max-width: 1100px;
+    margin: 0 auto 35px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.summary-card {
+    background: white;
+    padding: 25px 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(18, 59, 93, 0.05);
+}
+
+.summary-icon {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #edf5fc;
+    color: #123B5D;
+    border-radius: 10px;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.summary-card p {
+    color: #64748b;
+    font-size: 13px;
+}
+
+.summary-card h3 {
+    color: #123B5D;
+    font-size: 30px;
+    margin-top: 5px;
+}
+
+/* Grafik pengaduan */
+.chart-container {
+    max-width: 1100px;
+    margin: 0 auto 40px;
+    padding: 30px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(18, 59, 93, 0.05);
+}
+
+.chart-container h3,
+.report-list-container h3 {
+    color: #123B5D;
+    font-size: 21px;
+    margin-bottom: 8px;
+}
+
+.chart-container > p {
+    color: #64748b;
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+.chart-container canvas {
+    width: 100% !important;
+    max-height: 350px;
+}
+
+/* Daftar laporan */
+.report-list-container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+.report-list-container > h3 {
+    margin-bottom: 20px;
+}
+
+.report-card {
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 18px;
+}
+
+.report-status {
+    display: inline-block;
+}
+
+/* Tampilan tablet */
+@media (max-width: 1000px) {
+    .report-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Tampilan HP */
+@media (max-width: 700px) {
+    .report-summary {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .summary-card {
+        padding: 18px 14px;
+    }
+
+    .summary-card h3 {
+        font-size: 25px;
+    }
+
+    .chart-container {
+        padding: 18px;
+    }
 }
