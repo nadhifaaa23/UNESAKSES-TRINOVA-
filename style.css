@@ -159,7 +159,9 @@ transition: 0.3s;
 
 .hero {
     position: relative;
+    width: 100%;
     min-height: 850px;
+    margin: 0;
     padding: 150px 7% 100px;
     display: flex;
     align-items: center;
@@ -173,7 +175,7 @@ transition: 0.3s;
         ),
         url('assets/gedung-unesa.jpg');
     background-size: cover;
-    background-position: center bottom;
+    background-position: center;
     background-repeat: no-repeat;
 }
 
@@ -839,4 +841,34 @@ transition: 0.3s;
     .footer {
         padding: 45px 6% 20px;
     }
+}
+
+/* 13. SCROLLBAR VISIBLE */
+html {
+    overflow-y: scroll !important;
+    scrollbar-width: thin !important; 
+    scrollbar-color: rgba(255, 255, 255, 0.35) transparent !important;
+}
+
+html::-webkit-scrollbar {
+    display: block !important;
+    width: 8px !important;
+}
+
+html::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+html::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.35) !important;
+    border-radius: 10px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.55) !important;
+}
+
+body {
+    margin: 0;
+    overflow-x: hidden; 
 }
