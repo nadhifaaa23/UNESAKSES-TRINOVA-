@@ -194,38 +194,14 @@
 
     <div class="directory-facility-grid">
 
-        <button class="facility-card" type="button"
-            data-location="lab-tata-rias">
-            <span class="facility-icon icon-pink">
-                <i class="fa-solid fa-palette"></i>
-            </span>
-            <strong>Lab Tata Rias</strong>
-            <span class="facility-link">Lihat Lokasi
-                <i class="fa-solid fa-arrow-right"></i>
-            </span>
-        </button>
+        <button class="facility-card" data-location="masjid">
+    <div class="facility-icon">
+        <i class="fas fa-mosque"></i>
+    </div>
 
-        <button class="facility-card" type="button"
-            data-location="perpustakaan">
-            <span class="facility-icon icon-blue">
-                <i class="fa-solid fa-book-open"></i>
-            </span>
-            <strong>Perpustakaan</strong>
-            <span class="facility-link">Lihat Lokasi
-                <i class="fa-solid fa-arrow-right"></i>
-            </span>
-        </button>
-
-        <button class="facility-card" type="button"
-            data-location="masjid">
-            <span class="facility-icon icon-green">
-                <i class="fa-solid fa-mosque"></i>
-            </span>
-            <strong>Masjid</strong>
-            <span class="facility-link">Lihat Lokasi
-                <i class="fa-solid fa-arrow-right"></i>
-            </span>
-        </button>
+    <h3>Masjid</h3>
+    <p>Lihat Lokasi →</p>
+</button>
 
         <button class="facility-card" type="button"
             data-location="foodcourt">
@@ -398,56 +374,65 @@
             </p>
         </div>
 
-        <!-- RINGKASAN LAPORAN -->
-        <div class="report-summary" id="reportSummary">
+        <!-- RINGKASAN PENGADUAN -->
+<div class="report-dashboard">
 
-            <div class="summary-card">
-                <div class="summary-icon">
-                    <i class="fa-solid fa-clipboard-list"></i>
-                </div>
-                <p>Total Laporan</p>
-                <h3 id="totalReports">0</h3>
+    <!-- GRAFIK DI SEBELAH KIRI -->
+    <div class="chart-container">
+        <h3>Grafik Ringkasan Pengaduan</h3>
+        <p>Jumlah laporan berdasarkan status penanganan.</p>
+        <canvas id="reportChart"></canvas>
+    </div>
+
+    <!-- PERSENTASE DI SEBELAH KANAN -->
+    <div class="report-progress-container">
+
+        <div class="progress-item">
+            <div class="progress-heading">
+                <span>Laporan</span>
+                <strong id="totalPercentage">0%</strong>
             </div>
-
-            <div class="summary-card">
-                <div class="summary-icon">
-                    <i class="fa-solid fa-clock"></i>
-                </div>
-                <p>Menunggu Tindak Lanjut</p>
-                <h3 id="pendingReports">0</h3>
+            <div class="progress-track">
+                <div class="progress-fill" id="totalProgress"></div>
             </div>
-
-            <div class="summary-card">
-                <div class="summary-icon">
-                    <i class="fa-solid fa-screwdriver-wrench"></i>
-                </div>
-                <p>Sedang Diperbaiki</p>
-                <h3 id="progressReports">0</h3>
-            </div>
-
-            <div class="summary-card">
-                <div class="summary-icon">
-                    <i class="fa-solid fa-circle-check"></i>
-                </div>
-                <p>Laporan Selesai</p>
-                <h3 id="completedReports">0</h3>
-            </div>
-
+            <small>Total laporan: <span id="totalReports">0</span></small>
         </div>
 
-        <!-- GRAFIK -->
-        <div class="chart-container">
-
-            <h3>Grafik Ringkasan Pengaduan</h3>
-
-            <p>
-                Jumlah laporan berdasarkan status penanganan.
-            </p>
-
-            <canvas id="reportChart"></canvas>
-
+        <div class="progress-item">
+            <div class="progress-heading">
+                <span>Menunggu Tindak Lanjut</span>
+                <strong id="pendingPercentage">0%</strong>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" id="pendingProgress"></div>
+            </div>
+            <small>Jumlah: <span id="pendingReports">0</span></small>
         </div>
 
+        <div class="progress-item">
+            <div class="progress-heading">
+                <span>Sedang Diperbaiki</span>
+                <strong id="progressPercentage">0%</strong>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+            <small>Jumlah: <span id="progressReports">0</span></small>
+        </div>
+
+        <div class="progress-item">
+            <div class="progress-heading">
+                <span>Selesai</span>
+                <strong id="completedPercentage">0%</strong>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" id="completedProgress"></div>
+            </div>
+            <small>Jumlah: <span id="completedReports">0</span></small>
+        </div>
+
+    </div>
+</div>
         <!-- DAFTAR LAPORAN -->
         <div class="report-list-container">
 

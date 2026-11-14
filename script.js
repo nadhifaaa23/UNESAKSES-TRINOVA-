@@ -109,7 +109,7 @@ const campusFacilities = {
     },
     "parkiran": {
         name: "Area Parkir",
-        detail: "Area parkir kendaraan kampus."
+        detail: "Area parkir mahasiswa dan dosen."
     }
 };
 
@@ -193,8 +193,653 @@ if (mg2Container) {
 
 // 6. MENAMPILKAN PILIHAN LOKASI DI BAGIAN DENAH
 
+function renderMasjidMap(name, detail) {
+    const denahDisplay = document.getElementById("denahDisplay");
+    const selectedRoomTitle = document.getElementById("selectedRoomTitle");
+    const selectedRoomInfo = document.getElementById("selectedRoomInfo");
+
+    if (!denahDisplay || !selectedRoomTitle || !selectedRoomInfo) {
+        console.error("Elemen denah Masjid tidak ditemukan.");
+        return;
+    }
+
+    selectedRoomTitle.textContent = "Denah Masjid Joglo Al Hasan";
+    selectedRoomInfo.textContent =
+        "Pilih area pada denah untuk melihat keterangan lokasinya.";
+
+    denahDisplay.innerHTML = `
+        <div class="masjid-map-container">
+            <svg viewBox="0 0 700 500"
+                 class="masjid-svg"
+                 xmlns="http://www.w3.org/2000/svg">
+
+                <style>
+                    .wall {
+                        fill: none;
+                        stroke: #333;
+                        stroke-width: 2;
+                    }
+
+                    .inner-wall {
+                        fill: none;
+                        stroke: #555;
+                        stroke-width: 3;
+                    }
+
+                    .column {
+                        fill: white;
+                        stroke: #333;
+                        stroke-width: 2;
+                    }
+
+                    .room-area {
+                        fill: #e8f0e8;
+                        fill-opacity: 0.45;
+                        stroke: transparent;
+                        cursor: pointer;
+                    }
+
+                    .room-area:hover,
+                    .room-area.selected {
+                        fill: #ffb6b6;
+                        fill-opacity: 0.7;
+                        stroke: #d62828;
+                        stroke-width: 2;
+                    }
+
+                    .room-label {
+                        font-size: 13px;
+                        fill: #333;
+                        text-anchor: middle;
+                        pointer-events: none;
+                    }
+
+                    .door {
+                        fill: none;
+                        stroke: #555;
+                        stroke-width: 1.5;
+                    }
+                </style>
+
+                <!-- Judul denah -->
+                <text x="350" y="30"
+                      text-anchor="middle"
+                      font-size="19"
+                      font-weight="bold">
+                    MASJID JOGLO AL HASAN
+                </text>
+
+                <!-- Batas teras luar -->
+                <rect x="150" y="65" width="410" height="365" class="wall"/>
+                <rect x="160" y="75" width="390" height="345" class="wall"/>
+                <rect x="170" y="85" width="370" height="325" class="wall"/>
+
+                <!-- Area utama yang bisa diklik -->
+                <rect x="180" y="145" width="350" height="250"
+                      class="room-area"
+                      data-room-code="MASJID-UTAMA"/>
+
+                <text x="355" y="270" class="room-label">
+                    AREA UTAMA MASJID
+                </text>
+
+                <!-- Ruang kecil bagian atas kiri -->
+                <rect x="205" y="85" width="100" height="55" class="wall"/>
+                <rect x="205" y="85" width="100" height="55"
+                      class="room-area"
+                      data-room-code="MASJID-DEPAN-KIRI"/>
+                <text x="255" y="115" class="room-label">Ruang depan kiri</text>
+
+                <!-- Ruang kecil bagian atas kanan -->
+                <rect x="405" y="85" width="100" height="55" class="wall"/>
+                <rect x="405" y="85" width="100" height="55"
+                      class="room-area"
+                      data-room-code="MASJID-DEPAN-KANAN"/>
+                <text x="455" y="115" class="room-label">Ruang depan kanan</text>
+
+                <!-- Sekat bagian tengah -->
+                <path d="M305 145 V220" class="inner-wall"/>
+                <path d="M405 145 V220" class="inner-wall"/>
+                <path d="M305 245 V330 H405 V245"
+                      class="inner-wall"/>
+
+                <!-- Area tambahan sisi kiri -->
+                <rect x="70" y="100" width="80" height="115" class="wall"/>
+                <rect x="75" y="105" width="70" height="105"
+                      class="room-area"
+                      data-room-code="MASJID-SISI-KIRI"/>
+
+                <path d="M110 105 V210" class="wall"/>
+                <text x="110" y="160" class="room-label">Area</text>
+                <text x="110" y="177" class="room-label">sisi kiri</text>
+
+                <!-- Pintu area sisi kiri -->
+                <path d="M145 175 A25 25 0 0 1 120 200" class="door"/>
+
+                <!-- Tiang-tiang masjid -->
+                <g>
+                    <circle cx="195" cy="180" r="7" class="column"/>
+                    <circle cx="290" cy="180" r="7" class="column"/>
+                    <circle cx="390" cy="180" r="7" class="column"/>
+                    <circle cx="515" cy="180" r="7" class="column"/>
+
+                    <circle cx="195" cy="260" r="7" class="column"/>
+                    <circle cx="290" cy="260" r="7" class="column"/>
+                    <circle cx="390" cy="260" r="7" class="column"/>
+                    <circle cx="515" cy="260" r="7" class="column"/>
+
+                    <circle cx="195" cy="375" r="7" class="column"/>
+                    <circle cx="290" cy="375" r="7" class="column"/>
+                    <circle cx="390" cy="375" r="7" class="column"/>
+                    <circle cx="515" cy="375" r="7" class="column"/>
+                </g>
+
+                <!-- Keterangan -->
+                <text x="350" y="465"
+                      text-anchor="middle"
+                      font-size="12"
+                      fill="#555">
+                    Klik area denah untuk memilih lokasi
+                </text>
+            </svg>
+        </div>
+    `;
+
+    // Fitur klik area denah
+    const roomAreas = denahDisplay.querySelectorAll("[data-room-code]");
+
+    roomAreas.forEach(area => {
+        area.addEventListener("click", function () {
+            roomAreas.forEach(item => item.classList.remove("selected"));
+            this.classList.add("selected");
+
+            const roomCode = this.dataset.roomCode;
+
+            const roomNames = {
+                "MASJID-UTAMA": "Area Utama Masjid",
+                "MASJID-DEPAN-KIRI": "Ruang Depan Kiri",
+                "MASJID-DEPAN-KANAN": "Ruang Depan Kanan",
+                "MASJID-SISI-KIRI": "Area Sisi Kiri"
+            };
+
+            selectedRoomTitle.textContent = roomNames[roomCode];
+            selectedRoomInfo.textContent =
+                "Lokasi yang dipilih: " + roomNames[roomCode];
+        });
+    });
+}
+
+function renderFoodcourtMap(name, detail) {
+    const denahDisplay = document.getElementById("denahDisplay");
+    const selectedRoomTitle = document.getElementById("selectedRoomTitle");
+    const selectedRoomInfo = document.getElementById("selectedRoomInfo");
+
+    if (!denahDisplay || !selectedRoomTitle || !selectedRoomInfo) {
+        console.error("Elemen denah Food Court tidak ditemukan.");
+        return;
+    }
+
+    selectedRoomTitle.textContent = "Denah Food Court";
+    selectedRoomInfo.textContent = "Lokasi Food Court ditandai dengan pin merah.";
+
+    denahDisplay.innerHTML = `
+        <div class="foodcourt-map-container">
+            <svg viewBox="0 0 700 520"
+                 class="foodcourt-svg"
+                 xmlns="http://www.w3.org/2000/svg">
+
+                <style>
+                    .fc-wall {
+                        fill: none;
+                        stroke: #333;
+                        stroke-width: 3;
+                    }
+
+                    .fc-inner-wall {
+                        fill: none;
+                        stroke: #555;
+                        stroke-width: 2;
+                    }
+
+                    .fc-area {
+                        fill: #f8f8f2;
+                        stroke: #555;
+                        stroke-width: 2;
+                    }
+
+                    .fc-label {
+                        font-size: 13px;
+                        fill: #333;
+                        text-anchor: middle;
+                    }
+
+                    .fc-small-label {
+                        font-size: 10px;
+                        fill: #555;
+                        text-anchor: middle;
+                    }
+
+                    .fc-table {
+                        fill: #e7d7bd;
+                        stroke: #6d6255;
+                        stroke-width: 1.5;
+                    }
+
+                    .fc-chair {
+                        fill: #fff;
+                        stroke: #6d6255;
+                        stroke-width: 1.3;
+                    }
+
+                    .fc-pin {
+                        cursor: pointer;
+                    }
+                </style>
+
+                <!-- Latar dan area luar -->
+                <rect width="700" height="520" fill="#f4f5ef"/>
+
+                <!-- Batas luar melengkung -->
+                <path d="M105 105 Q75 260 105 415
+                         L595 415 Q625 260 595 105"
+                      fill="none" stroke="#888" stroke-width="2"/>
+
+                <path d="M125 125 Q100 260 125 395
+                         L575 395 Q600 260 575 125"
+                      fill="none" stroke="#aaa" stroke-width="2"/>
+
+                <!-- Bangunan utama -->
+                <rect x="170" y="100" width="360" height="320"
+                      class="fc-wall"/>
+
+                <rect x="180" y="110" width="340" height="300"
+                      class="fc-inner-wall"/>
+
+                <!-- Area toilet pria -->
+                <rect x="180" y="110" width="105" height="75"
+                      class="fc-area"/>
+                <text x="232" y="145" class="fc-label">TOILET PRIA</text>
+                <text x="232" y="162" class="fc-small-label">WC</text>
+
+                <!-- Area toilet wanita -->
+                <rect x="415" y="110" width="105" height="75"
+                      class="fc-area"/>
+                <text x="467" y="145" class="fc-label">TOILET WANITA</text>
+                <text x="467" y="162" class="fc-small-label">WC</text>
+
+                <!-- Area makan tengah -->
+                <rect x="285" y="185" width="130" height="215"
+                      fill="#fffdf6" stroke="#777" stroke-width="1.5"/>
+
+                <text x="350" y="285"
+                      class="fc-label"
+                      font-size="16"
+                      font-weight="bold">
+                    AREA MAKAN
+                </text>
+
+                <text x="350" y="305" class="fc-small-label">
+                    FOOD COURT
+                </text>
+
+                <!-- Area meja sisi kiri atas -->
+                <rect x="180" y="195" width="100" height="75"
+                      class="fc-area"/>
+
+                <!-- Meja dan kursi kiri atas -->
+                <rect x="205" y="218" width="42" height="25"
+                      rx="3" class="fc-table"/>
+                <circle cx="198" cy="230" r="5" class="fc-chair"/>
+                <circle cx="254" cy="230" r="5" class="fc-chair"/>
+                <circle cx="226" cy="210" r="5" class="fc-chair"/>
+                <circle cx="226" cy="251" r="5" class="fc-chair"/>
+
+                <!-- Area meja sisi kiri bawah -->
+                <rect x="180" y="280" width="100" height="120"
+                      class="fc-area"/>
+
+                <rect x="205" y="300" width="42" height="25"
+                      rx="3" class="fc-table"/>
+                <circle cx="198" cy="312" r="5" class="fc-chair"/>
+                <circle cx="254" cy="312" r="5" class="fc-chair"/>
+                <circle cx="226" cy="292" r="5" class="fc-chair"/>
+                <circle cx="226" cy="333" r="5" class="fc-chair"/>
+
+                <rect x="205" y="350" width="42" height="25"
+                      rx="3" class="fc-table"/>
+                <circle cx="198" cy="362" r="5" class="fc-chair"/>
+                <circle cx="254" cy="362" r="5" class="fc-chair"/>
+                <circle cx="226" cy="342" r="5" class="fc-chair"/>
+                <circle cx="226" cy="383" r="5" class="fc-chair"/>
+
+                <!-- Area meja sisi kanan atas -->
+                <rect x="420" y="195" width="100" height="75"
+                      class="fc-area"/>
+
+                <rect x="453" y="218" width="42" height="25"
+                      rx="3" class="fc-table"/>
+                <circle cx="446" cy="230" r="5" class="fc-chair"/>
+                <circle cx="502" cy="230" r="5" class="fc-chair"/>
+                <circle cx="474" cy="210" r="5" class="fc-chair"/>
+                <circle cx="474" cy="251" r="5" class="fc-chair"/>
+
+                <!-- Area meja sisi kanan bawah -->
+                <rect x="420" y="280" width="100" height="120"
+                      class="fc-area"/>
+
+                <rect x="453" y="300" width="42" height="25"
+                      rx="3" class="fc-table"/>
+                <circle cx="446" cy="312" r="5" class="fc-chair"/>
+                <circle cx="502" cy="312" r="5" class="fc-chair"/>
+                <circle cx="474" cy="292" r="5" class="fc-chair"/>
+                <circle cx="474" cy="333" r="5" class="fc-chair"/>
+
+                <rect x="453" y="350" width="42" height="25"
+                      rx="3" class="fc-table"/>
+                <circle cx="446" cy="362" r="5" class="fc-chair"/>
+                <circle cx="502" cy="362" r="5" class="fc-chair"/>
+                <circle cx="474" cy="342" r="5" class="fc-chair"/>
+                <circle cx="474" cy="383" r="5" class="fc-chair"/>
+
+                <!-- Jalur masuk -->
+                <path d="M325 420 V445 H375 V420"
+                      fill="none" stroke="#555" stroke-width="2"/>
+
+                <text x="350" y="465" class="fc-small-label">
+                    AKSES MASUK
+                </text>
+
+                <!-- Satu pin lokasi Food Court -->
+                <g class="fc-pin" id="foodcourtLocationPin"
+                   transform="translate(350 175)">
+
+                    <path d="M0 0
+                             C-22 0 -34 16 -34 36
+                             C-34 61 0 91 0 91
+                             C0 91 34 61 34 36
+                             C34 16 22 0 0 0 Z"
+                          fill="#e53935"
+                          stroke="#ffffff"
+                          stroke-width="4"/>
+
+                    <circle cx="0" cy="35" r="12" fill="#ffffff"/>
+                </g>
+
+                <text x="350" y="495"
+                      class="fc-small-label">
+                    DENAH FOOD COURT
+                </text>
+            </svg>
+        </div>
+    `;
+
+    // Pin merah bisa diklik untuk menampilkan informasi
+    const pin = denahDisplay.querySelector("#foodcourtLocationPin");
+
+    if (pin) {
+        pin.addEventListener("click", function () {
+            selectedRoomTitle.textContent = "Food Court";
+            selectedRoomInfo.textContent =
+                detail || "Area makan Food Court kampus.";
+        });
+    }
+}
+
+function renderParkirMap(name, detail) {
+    const denahDisplay = document.getElementById("denahDisplay");
+    const selectedRoomTitle = document.getElementById("selectedRoomTitle");
+    const selectedRoomInfo = document.getElementById("selectedRoomInfo");
+
+    if (!denahDisplay || !selectedRoomTitle || !selectedRoomInfo) {
+        console.error("Elemen denah parkir tidak ditemukan.");
+        return;
+    }
+
+    selectedRoomTitle.textContent = name;
+    selectedRoomInfo.textContent = "Silakan pilih area parkir pada denah.";
+
+    denahDisplay.innerHTML = `
+        <div style="width:100%; max-width:1100px; margin:auto; overflow:hidden;">
+            <svg id="parkingMap"
+                viewBox="0 0 1000 650"
+                xmlns="http://www.w3.org/2000/svg"
+                style="width:100%; height:auto; display:block; background:#f5f5f5;">
+
+                <rect width="1000" height="650" fill="#f5f5f5"/>
+
+                <!-- JALAN UTAMA: GARIS TEPI -->
+                <path d="M105 15 V620
+                    M105 130 H420
+                    C475 130 500 165 500 220
+                    V405
+                    C500 455 540 480 600 480
+                    H900
+                    C940 480 960 505 960 550
+                    V620"
+                    fill="none" stroke="#263342"
+                    stroke-width="68" stroke-linecap="round"
+                    stroke-linejoin="round"/>
+
+                <!-- BAHU JALAN -->
+                <path d="M105 15 V620
+                    M105 130 H420
+                    C475 130 500 165 500 220
+                    V405
+                    C500 455 540 480 600 480
+                    H900
+                    C940 480 960 505 960 550
+                    V620"
+                    fill="none" stroke="#ffffff"
+                    stroke-width="62" stroke-linecap="round"
+                    stroke-linejoin="round"/>
+
+                <!-- ASPAL -->
+                <path d="M105 15 V620
+                    M105 130 H420
+                    C475 130 500 165 500 220
+                    V405
+                    C500 455 540 480 600 480
+                    H900
+                    C940 480 960 505 960 550
+                    V620"
+                    fill="none" stroke="#424b59"
+                    stroke-width="52" stroke-linecap="butt"
+                    stroke-linejoin="round"/>
+
+                <!-- GARIS PUTUS-PUTUS JALAN -->
+                <path d="M105 15 V620
+                    M145 130 H420
+                    C475 130 500 165 500 220
+                    V405
+                    C500 455 540 480 600 480
+                    H900
+                    C940 480 960 505 960 550
+                    V620"
+                    fill="none" stroke="#ffffff"
+                    stroke-width="3" stroke-dasharray="20 18"/>
+
+                <!-- JALAN SISI ATAS KANAN -->
+                <rect x="500" y="145" width="470" height="55"
+                    rx="8" fill="#424b59"
+                    stroke="#263342" stroke-width="4"/>
+
+                <path d="M510 173 H960"
+                    stroke="#ffffff" stroke-width="3"
+                    stroke-dasharray="20 18"/>
+
+                <!-- PARKIR MOTOR MAHASISWA BAGIAN ATAS KIRI -->
+                <rect data-parkir="motor-mahasiswa"
+                    x="160" y="10" width="340" height="95"
+                    rx="12" fill="#cfe7fb"
+                    stroke="#123b68" stroke-width="4"
+                    style="cursor:pointer"/>
+
+                <text x="330" y="52" text-anchor="middle"
+                    font-size="27" font-weight="bold"
+                    fill="#102d55" pointer-events="none">
+                    P. MOTOR
+                </text>
+                <text x="330" y="82" text-anchor="middle"
+                    font-size="27" font-weight="bold"
+                    fill="#102d55" pointer-events="none">
+                    MAHASISWA
+                </text>
+
+                <!-- PARKIR MOTOR MAHASISWA BAGIAN ATAS KANAN -->
+                <rect data-parkir="motor-mahasiswa"
+                    x="570" y="10" width="400" height="95"
+                    rx="12" fill="#cfe7fb"
+                    stroke="#123b68" stroke-width="4"
+                    style="cursor:pointer"/>
+
+                <text x="770" y="52" text-anchor="middle"
+                    font-size="27" font-weight="bold"
+                    fill="#102d55" pointer-events="none">
+                    P. MOTOR
+                </text>
+                <text x="770" y="82" text-anchor="middle"
+                    font-size="27" font-weight="bold"
+                    fill="#102d55" pointer-events="none">
+                    MAHASISWA
+                </text>
+
+                <!-- PARKIR MOTOR MAHASISWA SISI KIRI -->
+                <rect data-parkir="motor-mahasiswa"
+                    x="15" y="160" width="50" height="390"
+                    rx="10" fill="#cfe7fb"
+                    stroke="#123b68" stroke-width="4"
+                    style="cursor:pointer"/>
+
+                <text x="40" y="355"
+                    text-anchor="middle"
+                    font-size="21" font-weight="bold"
+                    fill="#102d55"
+                    transform="rotate(-90 40 355)"
+                    pointer-events="none">
+                    P. MOTOR MAHASISWA
+                </text>
+
+               <!-- PARKIR MOBIL DOSEN TENGAH -->
+<rect data-parkir="mobil-dosen"
+    x="380" y="210" width="70" height="290"
+    rx="12" fill="#cfe7fb"
+    stroke="#123b68" stroke-width="4"
+    style="cursor:pointer"/>
+
+<text x="415" y="355"
+    text-anchor="middle"
+    font-size="22" font-weight="bold"
+    fill="#102d55"
+    transform="rotate(-90 415 355)"
+    pointer-events="none">
+    P. MOBIL DOSEN
+</text>
+
+                <!-- DERETAN PARKIR MOTOR MAHASISWA -->
+                <g fill="#cfe7fb" stroke="#123b68"
+                    stroke-width="3.5">
+
+                    <rect data-parkir="motor-mahasiswa"
+                        <rect data-parkir="dosen"
+                        x="535" y="195" width="78" height="290"
+                        rx="12" style="cursor:pointer"/>
+
+                    <rect data-parkir="motor-mahasiswa"
+                        x="620" y="195" width="78" height="290"
+                        rx="12" style="cursor:pointer"/>
+
+                    <rect data-parkir="motor-mahasiswa"
+                        x="705" y="195" width="78" height="290"
+                        rx="12" style="cursor:pointer"/>
+
+                    <rect data-parkir="motor-mahasiswa"
+                        x="790" y="195" width="78" height="290"
+                        rx="12" style="cursor:pointer"/>
+
+                    <rect data-parkir="motor-mahasiswa"
+                        x="875" y="195" width="78" height="290"
+                        rx="12" style="cursor:pointer"/>
+                </g>
+
+                <!-- LABEL DERETAN PARKIR -->
+                <g fill="#102d55" font-size="21"
+                    font-weight="bold" text-anchor="middle"
+                    pointer-events="none">
+
+                    <text x="574" y="340"
+                        transform="rotate(-90 574 340)">
+                        P. MOTOR DOSEN
+                    </text>
+
+                    <text x="659" y="340"
+                        transform="rotate(-90 659 340)">
+                        P. MOTOR MAHASISWA
+                    </text>
+
+                    <text x="744" y="340"
+                        transform="rotate(-90 744 340)">
+                        P. MOTOR MAHASISWA
+                    </text>
+
+                    <text x="829" y="340"
+                        transform="rotate(-90 829 340)">
+                        P. MOTOR MAHASISWA
+                    </text>
+
+                    <text x="914" y="340"
+                        transform="rotate(-90 914 340)">
+                        P. MOTOR MAHASISWA
+                    </text>
+                </g>
+
+                <!-- PIN PENANDA LOKASI -->
+                <g id="parkingPin" style="display:none"
+                    pointer-events="none">
+                    <path d="M0 0 C-25 -32 -25 -52 0 -52
+                        C25 -52 25 -32 0 0 Z"
+                        fill="#e53935" stroke="white"
+                        stroke-width="3"/>
+                    <circle cx="0" cy="-35" r="8" fill="white"/>
+                </g>
+
+            </svg>
+        </div>
+    `;
+
+    const parkingMap = document.getElementById("parkingMap");
+    const parkingPin = parkingMap.querySelector("#parkingPin");
+
+    parkingMap.querySelectorAll("[data-parkir]").forEach(area => {
+        area.addEventListener("click", function () {
+            const jenis = this.getAttribute("data-parkir");
+            const posisi = this.getBBox();
+
+            parkingPin.setAttribute(
+                "transform",
+                `translate(${posisi.x + posisi.width / 2}, ${posisi.y})`
+            );
+
+            parkingPin.style.display = "block";
+
+            if (jenis === "dosen") {
+                selectedRoomTitle.textContent = "Parkir Mobil Dosen";
+                selectedRoomInfo.textContent =
+                    "Lokasi parkir kendaraan mobil khusus dosen.";
+            } else if (jenis === "dosen") { 
+                selectedRoomTitle.textContent = "Parkir Motor Dosen";
+                selectedRoomInfo.textContent =
+                    "Lokasi parkir kendaraan motor khusus dosen.";
+            } else {
+                selectedRoomTitle.textContent = "Parkir Motor Mahasiswa";
+                selectedRoomInfo.textContent =
+                    "Lokasi parkir kendaraan motor khusus mahasiswa.";
+            }
+        });
+    });
+}
 
 function openCampusLocation(name, detail, code = "") {
+    console.log("openCampusLocation dijalankan:", name);
     const denahSection = document.getElementById("denah");
     const denahDisplay = document.getElementById("denahDisplay");
     const title = document.getElementById("selectedRoomTitle");
@@ -205,9 +850,22 @@ function openCampusLocation(name, detail, code = "") {
         return;
     }
 
+// MENAMPILKAN DENAH AREA PARKIR
+if (name.toLowerCase().includes("parkir")) {
+    renderParkirMap(name, detail);
+
+    denahSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+    return;
+}
+
 // MENAMPILKAN DENAH MASJID
 if (name.toLowerCase().includes("masjid")) {
-
+    title.textContent = name;
+    info.textContent = detail;
     renderMasjidMap(name, detail);
 
     denahSection.scrollIntoView({
@@ -218,17 +876,26 @@ if (name.toLowerCase().includes("masjid")) {
     return;
 }
 
-    // MENAMPILKAN DENAH GEDUNG MG2
-    if (code && code.startsWith("MG2.")) {
-        renderMG2Map(name, detail, code);
-        
-        denahSection.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
+if (name.toLowerCase().includes("food court")) {
+    renderFoodcourtMap(name, detail);
+    denahSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+    return;
+}
 
-        return;
-    }
+// MENAMPILKAN DENAH GEDUNG MG2
+if (code && code.startsWith("MG2.")) {
+    renderMG2Map(name, detail, code);
+
+    denahSection.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+
+    return;
+}
 
 // MENAMPILKAN DENAH SESUAI LANTAI 
 
@@ -547,63 +1214,40 @@ if (floorNumber === "03") {
     `;
 
     // EVENT KLIK RUANGAN LANTAI 3
-    const floor3Svg = denahDisplay.querySelector("svg");
+const floor3Svg = denahDisplay.querySelector("svg");
 
-    if (floor3Svg) {
-        floor3Svg.addEventListener("click", function(event) {
+if (floor3Svg) {
+    floor3Svg.addEventListener("click", function(event) {
 
-            const clickedRoom =
-                event.target.closest("[data-room-code]");
+        const clickedRoom =
+            event.target.closest("[data-room-code]");
 
-            if (!clickedRoom) return;
+        if (!clickedRoom) return;
 
-            const selectedCode =
-                clickedRoom.dataset.roomCode;
+        const selectedCode =
+            clickedRoom.dataset.roomCode;
 
-            const selectedRoom =
-                roomsMG1["03"].find(
-                    room => room.code === selectedCode
-                );
-
-            if (!selectedRoom) return;
-function renderMasjidMap(name, detail) {
-    const denahDisplay = document.getElementById("denahDisplay");
-    const selectedRoomTitle = document.getElementById("selectedRoomTitle");
-    const selectedRoomInfo = document.getElementById("selectedRoomInfo");
-
-    selectedRoomTitle.textContent = name || "Masjid";
-    selectedRoomInfo.textContent = detail || "Denah Masjid";
-
-    denahDisplay.innerHTML = `
-        <div style="text-align: center; padding: 15px;">
-            <img
-                src="assets/masjid.jpeg"
-                alt="Denah Masjid"
-                style="
-                    width: 100%;
-                    max-width: 900px;
-                    height: auto;
-                    border-radius: 12px;
-                    object-fit: contain;
-                "
-            >
-        </div>
-    `;
-}
-            openCampusLocation(
-                selectedRoom.name,
-                "Ruangan Gedung MG1 lantai 3.",
-                selectedRoom.code
+        const selectedRoom =
+            roomsMG1["03"].find(
+                room => room.code === selectedCode
             );
-        });
-    }
 
-    denahSection.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
+        if (!selectedRoom) return;
+
+        openCampusLocation(
+            selectedRoom.name,
+            "Ruangan Gedung MG1 lantai 3.",
+            selectedRoom.code
+        );
     });
+}
 
-    return;
+denahSection.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+});
+
+return;
 }
 
 
@@ -1831,22 +2475,6 @@ function renderMG2Map(name, detail, code) {
                     stroke-width="3"
                 />
 
-                <!-- AREA PARKIR DOSEN -->
-                <rect
-                    x="40" y="80"
-                    width="210" height="120"
-                    rx="5"
-                    fill="#e8f1fa"
-                    stroke="#123B5D"
-                    stroke-width="3"
-                />
-                <text x="145" y="145"
-                    text-anchor="middle"
-                    fill="#123B5D"
-                    font-size="17"
-                    font-weight="bold">
-                    PARKIR DOSEN
-                </text>
 
                 <!-- AREA TOILET -->
                 <rect
@@ -1887,23 +2515,6 @@ function renderMG2Map(name, detail, code) {
                     KORIDOR / SELASAR
                 </text>
 
-                <!-- AREA PARKIR MOTOR -->
-                <rect
-                    x="680" y="390"
-                    width="310" height="100"
-                    rx="5"
-                    fill="#e8f1fa"
-                    stroke="#123B5D"
-                    stroke-width="3"
-                />
-
-                <text x="835" y="445"
-                    text-anchor="middle"
-                    fill="#123B5D"
-                    font-size="17"
-                    font-weight="bold">
-                    PARKIR MOTOR
-                </text>
 
                 <!-- AREA GAZEBO -->
                 <rect
@@ -2071,19 +2682,16 @@ document.querySelectorAll(".room-location-button").forEach(button => {
 // 8. TOMBOL FASILITAS TUNGGAL
 
 document.querySelectorAll(".facility-card").forEach(button => {
-
     button.addEventListener("click", () => {
-
         const key = button.dataset.location;
         const facility = campusFacilities[key];
 
+        console.log("Tombol diklik:", key);
+        console.log("Data fasilitas:", facility); 
+ 
         if (!facility) return;
 
-        openCampusLocation(
-            facility.name,
-            facility.detail
-        );
-
+        openCampusLocation(facility.name, facility.detail);
     });
 
 });
@@ -2338,10 +2946,10 @@ function updateChart(pending, progress, completed) {
             percent + "%";
     }
 
-    setProgress("barTotal", "percentTotal", total);
-    setProgress("barPending", "percentPending", pending);
-    setProgress("barProgress", "percentProgress", progress);
-    setProgress("barCompleted", "percentCompleted", completed);
+    setProgress("totalProgress", "totalPercentage", total > 0 ? total : 0);
+    setProgress("pendingProgress", "pendingPercentage", pending);
+    setProgress("progressBar", "progressPercentage", progress);
+setProgress("completedProgress", "completedPercentage", completed);
 }
 
 // 10. MENGIRIM PENGADUAN
